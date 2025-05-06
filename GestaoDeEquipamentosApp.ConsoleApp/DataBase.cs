@@ -8,6 +8,6 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 {
     internal class DataBase
     {
-        List<EquipmentBack> Equipments = new List<EquipmentBack> ();
+        public List<EquipmentBack> Equipments = new List<EquipmentBack> ();
     }
 }

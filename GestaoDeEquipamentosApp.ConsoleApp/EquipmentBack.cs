@@ -8,11 +8,11 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 {
     internal class EquipmentBack
     {
-        public int id;
-        public string name;
-        public decimal purchasePrice;
-        public string serialNumber;
-        public DateTime manufactureDate;
-        public string manufacturer;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal PurchasePrice { get; set; }
+        public string SerialNumber { get; set; }
+        public DateTime ManufactureDate { get; set; }
+        public string Manufacturer { get; set; }
     }
 }
