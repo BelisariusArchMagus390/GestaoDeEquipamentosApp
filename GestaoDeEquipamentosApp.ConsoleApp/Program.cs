@@ -4,7 +4,10 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine();
+            DataBase data = new DataBase();
+
+            EquipmentPage ep = new EquipmentPage();
+            ep.Data = data;
         }
     }
 }

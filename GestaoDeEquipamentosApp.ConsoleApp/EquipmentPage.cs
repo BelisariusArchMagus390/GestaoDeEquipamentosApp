@@ -8,7 +8,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 {
     internal class EquipmentPage
     {
-        public DataBase Data;
+        public static DataBase Data;
         /*
         public EquipmentPage()
         {
@@ -110,6 +110,40 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
                     e.Id, e.Name, e.PurchasePrice.ToString("C2"), e.SerialNumber, e.Manufacturer, e.ManufactureDate.ToShortDateString()
                 );
             }
+        }
+
+        static EquipmentBack findEquipment()
+        {
+            EquipmentBack equipment = new EquipmentBack();
+
+            while (true)
+            {
+                Console.Clear();
+                Console.Write("\n Entre com o ID do equipamento: ");
+                int id = int.Parse(Console.ReadLine());
+
+                bool equipmentFound = false;
+                foreach (EquipmentBack e in Data.Equipments)
+                {
+                    if (e.Id == id)
+                    {
+                        equipment = e;
+                        break;
+                    }
+                }
+
+                if (equipmentFound == true)
+                    break;
+                else
+                    input.showErrorMessage(" Esse equipamento não existe.");
+            }
+
+            return equipment;
+        }
+
+        public void editEquipment()
+        {
+
         }
     }
 }
