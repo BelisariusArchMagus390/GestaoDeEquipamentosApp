@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GestaoDeEquipamentosApp.ConsoleApp
 {
-    internal class Equipment
+    internal class EquipmentBack
     {
         public int id;
         public string name;
