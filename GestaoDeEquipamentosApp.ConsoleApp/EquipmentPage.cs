@@ -8,7 +8,13 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 {
     internal class EquipmentPage
     {
-        private DataBase Data = new DataBase();
+        public DataBase Data;
+        /*
+        public EquipmentPage()
+        {
+            Data = new DataBase();
+        }
+        */
 
         private int createId()
         {
@@ -59,30 +65,51 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             Console.WriteLine($"\n REGISTRO DE EQUIPAMENTO");
             Console.WriteLine("\n --------------------------------------------");
 
-            Console.WriteLine("\n Digite seu nome: ");
+            Console.Write("\n Digite seu nome: ");
             equipment.Name = Console.ReadLine();
 
             Console.WriteLine();
 
-            Console.WriteLine(" Digite o seu preço de aquisição: ");
+            Console.Write(" Digite o seu preço de aquisição: ");
             equipment.PurchasePrice = Decimal.Parse(Console.ReadLine());
 
             Console.WriteLine();
 
-            Console.WriteLine(" Digite o número de série: ");
+            Console.Write(" Digite o número de série: ");
             equipment.SerialNumber = Console.ReadLine();
 
             Console.WriteLine();
 
-            Console.WriteLine(" Digite a data de fabricação: ");
+            Console.Write(" Digite a data de fabricação: ");
             equipment.ManufactureDate = DateTime.Parse(Console.ReadLine());
 
             Console.WriteLine();
 
-            Console.WriteLine(" Digite o nome do fabricante: ");
+            Console.Write(" Digite o nome do fabricante: ");
             equipment.Manufacturer = Console.ReadLine();
 
             Data.Equipments.Add(equipment);
+
+            Console.WriteLine("\n Equipamento registrado com sucesso!");
+        }
+
+        public void showEquipments()
+        {
+            Console.WriteLine(
+                "{0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20} | {5, -20}",
+                "Id", "Nome", "Preço Aquisição", "Número Série", "Fabricante", "Data Fabricação"
+            );
+
+            foreach (EquipmentBack e in Data.Equipments)
+            {
+                if (e == null)
+                    continue;
+
+                Console.WriteLine(
+                    "{0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20} | {5, -15}",
+                    e.Id, e.Name, e.PurchasePrice.ToString("C2"), e.SerialNumber, e.Manufacturer, e.ManufactureDate.ToShortDateString()
+                );
+            }
         }
     }
 }
