@@ -10,12 +10,11 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
     {
         public static EquipmentDataBase Data;
         public static Input Input;
-        /*
-        public EquipmentPage()
+        
+        public EquipmentPage(EquipmentDataBase equipmentData)
         {
-            Data = new DataBase();
+            Data = equipmentData;
         }
-        */
 
         private int createId()
         {
@@ -71,8 +70,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
             Console.WriteLine();
 
-            Console.Write(" Digite o seu preço de aquisição: ");
-            equipment.PurchasePrice = Decimal.Parse(Console.ReadLine());
+            equipment.PurchasePrice = Input.verifyDecimalValue(" Digite o seu preço de aquisição: ");
 
             Console.WriteLine();
 
@@ -81,8 +79,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
             Console.WriteLine();
 
-            Console.Write(" Digite a data de fabricação: ");
-            equipment.ManufactureDate = DateTime.Parse(Console.ReadLine());
+            equipment.ManufactureDate = Input.verifyDateTime(" Digite a data de fabricação: ");
 
             Console.WriteLine();
 
@@ -145,6 +142,35 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             return equipment;
         }
 
+        private int findIndexEquipment()
+        {
+            int index = 0;
+
+            while (true)
+            {
+                Console.Clear();
+                Console.Write("\n Entre com o ID do equipamento: ");
+                int id = int.Parse(Console.ReadLine());
+
+                bool equipmentFound = false;
+                foreach (EquipmentBack e in Data.Equipments)
+                {
+                    if (e.Id == id)
+                    {
+                        Data.Equipments.IndexOf(e);
+                        break;
+                    }
+                }
+
+                if (equipmentFound == true)
+                    break;
+                else
+                    Input.showErrorMessage(" Esse equipamento não existe.");
+            }
+
+            return index;
+        }
+
         public void edit()
         {
             EquipmentBack equipment = findEquipment();
@@ -158,8 +184,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
             Console.WriteLine();
 
-            Console.Write(" Digite o seu novo preço de aquisição: ");
-            equipment.PurchasePrice = Decimal.Parse(Console.ReadLine());
+            equipment.PurchasePrice = Input.verifyDecimalValue(" Digite o seu novo preço de aquisição: ");
 
             Console.WriteLine();
 
@@ -168,8 +193,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
             Console.WriteLine();
 
-            Console.Write(" Digite a novo data de fabricação: ");
-            equipment.ManufactureDate = DateTime.Parse(Console.ReadLine());
+            equipment.ManufactureDate = Input.verifyDateTime(" Digite a novo data de fabricação: ");
 
             Console.WriteLine();
 
@@ -179,6 +203,18 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             Data.Equipments.Add(equipment);
 
             Console.WriteLine("\n Registro de equipamento atualizado com sucesso!");
+
+            Console.WriteLine("\n Aperte ENTER para continuar...");
+            Console.ReadLine();
+        }
+
+        public void delete()
+        {
+            int equipmentIndex = findIndexEquipment();
+
+            Data.Equipments.RemoveAt(equipmentIndex);
+
+            Console.WriteLine("\n Registro de equipamento removido com sucesso!");
 
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();

@@ -4,10 +4,9 @@
     {
         static void Main(string[] args)
         {
-            EquipmentDataBase data = new EquipmentDataBase();
+            EquipmentDataBase equipmentData = new EquipmentDataBase();
 
-            EquipmentPage ep = new EquipmentPage();
-            ep.Data = data;
+            EquipmentPage ep = new EquipmentPage(equipmentData);
         }
     }
 }
