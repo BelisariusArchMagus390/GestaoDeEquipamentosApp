@@ -18,6 +18,8 @@
             bool ifExit = false;
             while (ifExit == false)
             {
+                Console.Clear();
+
                 char option = showGeneralMenu();
 
                 switch (option)
@@ -67,23 +69,29 @@
             bool ifExit = false;
             while (ifExit == false)
             {
+                Console.Clear();
+
                 char option = ep.showMenu();
 
                 switch (option)
                 {
                     case '1':
+                        Console.Clear();
                         ep.register();
                         break;
 
                     case '2':
+                        Console.Clear();
                         ep.showEquipments();
                         break;
 
                     case '3':
+                        Console.Clear();
                         ep.edit();
                         break;
 
                     case '4':
+                        Console.Clear();
                         ep.delete();
                         break;
 
@@ -103,23 +111,29 @@
             bool ifExit = false;
             while (ifExit == false)
             {
+                Console.Clear();
+
                 char option = cp.showMenu();
 
                 switch (option)
                 {
                     case '1':
+                        Console.Clear();
                         cp.register();
                         break;
 
                     case '2':
+                        Console.Clear();
                         cp.showCalls();
                         break;
 
                     case '3':
+                        Console.Clear();
                         cp.edit();
                         break;
 
                     case '4':
+                        Console.Clear();
                         cp.delete();
                         break;
 
@@ -139,23 +153,29 @@
             bool ifExit = false;
             while (ifExit == false)
             {
+                Console.Clear();
+
                 char option = cp.showMenu();
 
                 switch (option)
                 {
                     case '1':
+                        Console.Clear();
                         mp.register();
                         break;
 
                     case '2':
+                        Console.Clear();
                         mp.showManufacturers();
                         break;
 
                     case '3':
+                        Console.Clear();
                         mp.edit();
                         break;
 
                     case '4':
+                        Console.Clear();
                         mp.delete();
                         break;
 
