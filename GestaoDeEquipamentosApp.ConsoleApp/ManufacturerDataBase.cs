@@ -8,5 +8,6 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 {
     internal class ManufacturerDataBase
     {
+        List<Manufacturer> Manufacturers = new List<Manufacturer>();
     }
 }
