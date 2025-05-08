@@ -8,5 +8,10 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 {
     internal class Call
     {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public Equipment EquipmentRegister { get; set; }
+        public DateTime OpenCallDate { get; set; }
     }
 }
