@@ -9,7 +9,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
     internal class CallPage
     {
         public static CallDataBase Data;
-        public static Input Input;
+        public static Input Input = new Input();
         private static int IndexCount = 1;
 
         public CallPage(CallDataBase callData)

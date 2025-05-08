@@ -9,7 +9,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
     internal class EquipmentPage
     {
         public static EquipmentDataBase Data;
-        public static Input Input;
+        public static Input Input = new Input();
         
         public EquipmentPage(EquipmentDataBase equipmentData)
         {
