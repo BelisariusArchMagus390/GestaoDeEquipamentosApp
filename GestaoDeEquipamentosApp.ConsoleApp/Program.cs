@@ -160,7 +160,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             {
                 Console.Clear();
 
-                char option = cp.showMenu();
+                char option = mp.showMenu();
 
                 switch (option)
                 {

@@ -54,6 +54,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
                     if (e.Id == id)
                     {
                         equipment = e;
+                        equipmentFound = true;
                         break;
                     }
                 }
@@ -111,6 +112,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
                     if (c.Id == id)
                     {
                         Data.Calls.IndexOf(c);
+                        callFound = true;
                         break;
                     }
                 }
@@ -152,8 +154,8 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
 
             Data.Calls.RemoveAt(callIndex);
 
+            Console.Clear();
             Console.WriteLine("\n Registro de chamado removido com sucesso!");
-
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
         }

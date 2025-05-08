@@ -80,6 +80,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
                     if (m.Id == id)
                     {
                         Data.Manufacturers.IndexOf(m);
+                        manufacturerFound = true;
                         break;
                     }
                 }
@@ -120,8 +121,8 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
 
             Data.Manufacturers.RemoveAt(manufacturerIndex);
 
+            Console.Clear();
             Console.WriteLine("\n Registro de fabricante removido com sucesso!");
-
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
         }

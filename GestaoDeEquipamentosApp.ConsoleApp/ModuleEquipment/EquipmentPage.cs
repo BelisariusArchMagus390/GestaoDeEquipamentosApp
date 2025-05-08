@@ -125,6 +125,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
                     if (e.Id == id)
                     {
                         Data.Equipments.IndexOf(e);
+                        equipmentFound = true;
                         break;
                     }
                 }
@@ -169,8 +170,8 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 
             Data.Equipments.RemoveAt(equipmentIndex);
 
+            Console.Clear();
             Console.WriteLine("\n Registro de equipamento removido com sucesso!");
-
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
         }
