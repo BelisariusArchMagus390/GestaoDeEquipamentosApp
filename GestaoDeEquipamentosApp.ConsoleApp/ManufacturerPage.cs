@@ -33,5 +33,37 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
             return option;
         }
+
+        public void register()
+        {
+            Manufacturer manufacturer = new Manufacturer();
+
+            manufacturer.Id = IndexCount;
+
+            Console.WriteLine(" --------------------------------------------");
+            Console.WriteLine($"\n REGISTRO DE FABRICANTE");
+            Console.WriteLine("\n --------------------------------------------");
+
+            Console.Write("\n Digite o nome do fabricante: ");
+            manufacturer.Name = Console.ReadLine();
+
+            Console.WriteLine();
+
+            Console.Write(" Digite o e-mail do fabricante: ");
+            manufacturer.Email = Console.ReadLine();
+
+            Console.WriteLine();
+
+            Console.Write(" Digite o telefone do fabricante: ");
+            manufacturer.Telephone = Console.ReadLine();
+
+            Data.Manufacturers.Add(manufacturer);
+            IndexCount++;
+
+            Console.WriteLine("\n Fabricante registrado com sucesso!");
+
+            Console.WriteLine("\n Aperte ENTER para continuar...");
+            Console.ReadLine();
+        }
     }
 }
