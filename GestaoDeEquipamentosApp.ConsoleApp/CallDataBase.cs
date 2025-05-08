@@ -8,5 +8,6 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 {
     internal class CallDataBase
     {
+        public List<Call> Calls = new List<Call>();
     }
 }
