@@ -56,7 +56,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             return option;
         }
 
-        public void createEquipment()
+        public void register()
         {
             EquipmentBack equipment = new EquipmentBack();
 
@@ -145,7 +145,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             return equipment;
         }
 
-        public void editEquipment()
+        public void edit()
         {
             EquipmentBack equipment = findEquipment();
 
