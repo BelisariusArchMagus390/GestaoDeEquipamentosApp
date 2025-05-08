@@ -156,5 +156,17 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
         }
+
+        public void delete()
+        {
+            int callIndex = findIndexCall();
+
+            Data.Calls.RemoveAt(callIndex);
+
+            Console.WriteLine("\n Registro de chamado removido com sucesso!");
+
+            Console.WriteLine("\n Aperte ENTER para continuar...");
+            Console.ReadLine();
+        }
     }
 }
