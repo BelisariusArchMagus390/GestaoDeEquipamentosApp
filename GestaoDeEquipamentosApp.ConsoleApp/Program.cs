@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            DataBase data = new DataBase();
+            EquipmentDataBase data = new EquipmentDataBase();
 
             EquipmentPage ep = new EquipmentPage();
             ep.Data = data;

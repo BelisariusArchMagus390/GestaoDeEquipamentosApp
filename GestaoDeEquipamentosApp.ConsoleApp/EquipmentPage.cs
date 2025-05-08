@@ -8,7 +8,8 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 {
     internal class EquipmentPage
     {
-        public static DataBase Data;
+        public static EquipmentDataBase Data;
+        public static Input Input;
         /*
         public EquipmentPage()
         {
@@ -91,6 +92,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             Data.Equipments.Add(equipment);
 
             Console.WriteLine("\n Equipamento registrado com sucesso!");
+
+            Console.WriteLine("\n Aperte ENTER para continuar...");
+            Console.ReadLine();
         }
 
         public void showEquipments()
@@ -112,7 +116,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             }
         }
 
-        static EquipmentBack findEquipment()
+        private EquipmentBack findEquipment()
         {
             EquipmentBack equipment = new EquipmentBack();
 
@@ -135,7 +139,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
                 if (equipmentFound == true)
                     break;
                 else
-                    input.showErrorMessage(" Esse equipamento não existe.");
+                    Input.showErrorMessage(" Esse equipamento não existe.");
             }
 
             return equipment;
@@ -143,7 +147,41 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
         public void editEquipment()
         {
+            EquipmentBack equipment = findEquipment();
 
+            Console.WriteLine(" --------------------------------------------");
+            Console.WriteLine($"\n EDIÇÃO DE REGISTRO DE EQUIPAMENTO");
+            Console.WriteLine("\n --------------------------------------------");
+
+            Console.Write("\n Digite seu novo nome: ");
+            equipment.Name = Console.ReadLine();
+
+            Console.WriteLine();
+
+            Console.Write(" Digite o seu novo preço de aquisição: ");
+            equipment.PurchasePrice = Decimal.Parse(Console.ReadLine());
+
+            Console.WriteLine();
+
+            Console.Write(" Digite o seu novo número de série: ");
+            equipment.SerialNumber = Console.ReadLine();
+
+            Console.WriteLine();
+
+            Console.Write(" Digite a novo data de fabricação: ");
+            equipment.ManufactureDate = DateTime.Parse(Console.ReadLine());
+
+            Console.WriteLine();
+
+            Console.Write(" Digite o novo nome do fabricante: ");
+            equipment.Manufacturer = Console.ReadLine();
+
+            Data.Equipments.Add(equipment);
+
+            Console.WriteLine("\n Registro de equipamento atualizado com sucesso!");
+
+            Console.WriteLine("\n Aperte ENTER para continuar...");
+            Console.ReadLine();
         }
     }
 }
