@@ -55,6 +55,7 @@
             Console.WriteLine(" 2 - Gestão de chamados");
             Console.WriteLine(" 3 - Gestão de fabricantes");
             Console.WriteLine(" 4 - Sair");
+            Console.Write("\n Escolha uma das opções acima: ");
 
             char option = Console.ReadLine()[0];
 

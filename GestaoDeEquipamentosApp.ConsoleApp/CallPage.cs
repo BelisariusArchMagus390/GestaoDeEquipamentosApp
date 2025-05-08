@@ -29,6 +29,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             Console.WriteLine(" 4 - Excluir chamado");
             Console.WriteLine(" 5 - Sair");
 
+            Console.Write("\n Escolha uma das opções acima: ");
             char option = Console.ReadLine()[0];
 
             return option;
