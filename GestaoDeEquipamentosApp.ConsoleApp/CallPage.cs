@@ -98,5 +98,63 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
         }
+
+        private int findIndexCall()
+        {
+            int index = 0;
+
+            while (true)
+            {
+                Console.Clear();
+                Console.Write("\n Entre com o ID do equipamento: ");
+                int id = int.Parse(Console.ReadLine());
+
+                bool equipmentFound = false;
+                foreach (Call e in Data.Calls)
+                {
+                    if (e.Id == id)
+                    {
+                        Data.Calls.IndexOf(e);
+                        break;
+                    }
+                }
+
+                if (equipmentFound == true)
+                    break;
+                else
+                    Input.showErrorMessage(" Esse equipamento não existe.");
+            }
+            return index;
+        }
+
+        public void edit()
+        {
+            int callIndex = findIndexCall();
+
+            Console.WriteLine(" --------------------------------------------");
+            Console.WriteLine($"\n EDIÇÃO DE REGISTRO DE CHAMADO");
+            Console.WriteLine("\n --------------------------------------------");
+
+            Console.Write("\n Digite o título do chamado: ");
+            Data.Calls[callIndex].Title = Console.ReadLine();
+
+            Console.WriteLine();
+
+            Console.WriteLine(" Digite a descrição do chamado: ");
+            Data.Calls[callIndex].Description = Console.ReadLine();
+
+            Console.WriteLine();
+
+            Data.Calls[callIndex].EquipmentRegister = findEquipment();
+
+            Console.WriteLine();
+
+            Data.Calls[callIndex].OpenCallDate = Input.verifyDateTime(" Digite a data do chamado: ");
+
+            Console.WriteLine("\n Registro de chamado atualizado com sucesso!");
+
+            Console.WriteLine("\n Aperte ENTER para continuar...");
+            Console.ReadLine();
+        }
     }
 }
