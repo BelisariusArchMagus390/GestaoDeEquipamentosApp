@@ -96,7 +96,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
         public void edit()
         {
-            int manufacturerIndex = findIndexCall();
+            int manufacturerIndex = findIndexManufacturer();
 
             Console.WriteLine(" --------------------------------------------");
             Console.WriteLine($"\n REGISTRO DE FABRICANTE");
@@ -119,6 +119,48 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
+        }
+
+        public void delete()
+        {
+            int manufacturerIndex = findIndexManufacturer();
+
+            Data.Manufacturers.RemoveAt(manufacturerIndex);
+
+            Console.WriteLine("\n Registro de fabricante removido com sucesso!");
+
+            Console.WriteLine("\n Aperte ENTER para continuar...");
+            Console.ReadLine();
+        }
+
+        public void showManufacturers()
+        {
+            EquipmentDataBase equipmentData = new EquipmentDataBase();
+            List<Equipment> equipmentsList = equipmentData.Equipments;
+
+            Console.WriteLine(
+                "{0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
+                "Id", "Nome", "E-mail", "Telefone", "Quantidade de equipamentos"
+            );
+
+            foreach (Manufacturer m in Data.Manufacturers)
+            {
+                if (m == null)
+                    continue;
+
+                int contEquipment = 0;
+
+                for (int i = 0; i < equipmentsList.Count; i++)
+                {
+                    if (equipmentsList[i].Manufacturer == m.Name)
+                        contEquipment++;
+                }
+
+                Console.WriteLine(
+                    "{0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
+                    m.Id, m.Name, m.Email, m.Telephone, contEquipment
+                );
+            }
         }
     }
 }
