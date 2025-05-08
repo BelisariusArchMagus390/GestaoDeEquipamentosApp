@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GestaoDeEquipamentosApp.ConsoleApp
+namespace GestaoDeEquipamentosApp.ConsoleApp.Utilities
 {
     internal class Input
     {
@@ -26,7 +26,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
                 Console.Write(message);
                 string value = Console.ReadLine();
 
-                if (Decimal.TryParse(value, out decimal decimalValue))
+                if (decimal.TryParse(value, out decimal decimalValue))
                 {
                     return decimalValue;
                 }

@@ -1,10 +1,12 @@
-﻿using System;
+﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment;
+using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GestaoDeEquipamentosApp.ConsoleApp
+namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
 {
     internal class ManufacturerPage
     {
@@ -85,7 +87,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
                 if (manufacturerFound == true)
                     break;
                 else
-                    Input.showErrorMessage(" Esse fabricante não existe.");
+                    Input.showErrorMessage("Esse fabricante não existe.");
             }
             return index;
         }

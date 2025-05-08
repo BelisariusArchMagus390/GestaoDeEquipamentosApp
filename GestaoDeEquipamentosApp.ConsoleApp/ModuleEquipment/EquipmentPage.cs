@@ -1,10 +1,11 @@
-﻿using System;
+﻿using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GestaoDeEquipamentosApp.ConsoleApp
+namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 {
     internal class EquipmentPage
     {
@@ -131,7 +132,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
                 if (equipmentFound == true)
                     break;
                 else
-                    Input.showErrorMessage(" Esse equipamento não existe.");
+                    Input.showErrorMessage("Esse equipamento não existe.");
             }
             return index;
         }
