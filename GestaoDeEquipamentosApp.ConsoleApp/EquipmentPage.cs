@@ -62,35 +62,26 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
             equipment.Id = createId();
 
-            Console.WriteLine(" --------------------------------------------");
-            Console.WriteLine($"\n REGISTRO DE EQUIPAMENTO");
-            Console.WriteLine("\n --------------------------------------------");
-
-            Console.Write("\n Digite seu nome: ");
+            Console.Clear();
+            Console.Write("\n Digite o nome do equipamento: ");
             equipment.Name = Console.ReadLine();
 
-            Console.WriteLine();
+            equipment.PurchasePrice = Input.verifyDecimalValue("\n Digite o seu preço de aquisição: ");
 
-            equipment.PurchasePrice = Input.verifyDecimalValue(" Digite o seu preço de aquisição: ");
-
-            Console.WriteLine();
-
-            Console.Write(" Digite o número de série: ");
+            Console.Clear();
+            Console.Write("\n Digite o número de série do equipamento: ");
             equipment.SerialNumber = Console.ReadLine();
 
-            Console.WriteLine();
+            equipment.ManufactureDate = Input.verifyDateTime("\n Digite a data de fabricação: ");
 
-            equipment.ManufactureDate = Input.verifyDateTime(" Digite a data de fabricação: ");
-
-            Console.WriteLine();
-
-            Console.Write(" Digite o nome do fabricante: ");
+            Console.Clear();
+            Console.Write("\n Digite o nome do fabricante do equipamento: ");
             equipment.Manufacturer = Console.ReadLine();
 
             Data.Equipments.Add(equipment);
 
+            Console.Clear();
             Console.WriteLine("\n Equipamento registrado com sucesso!");
-
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
         }
@@ -112,6 +103,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
                     e.Id, e.Name, e.PurchasePrice.ToString("C2"), e.SerialNumber, e.Manufacturer, e.ManufactureDate.ToShortDateString()
                 );
             }
+
+            Console.WriteLine("\n Aperte ENTER para continuar...");
+            Console.ReadLine();
         }
 
         private int findIndexEquipment()
@@ -146,33 +140,24 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
         {
             int equipmentIndex = findIndexEquipment();
 
-            Console.WriteLine(" --------------------------------------------");
-            Console.WriteLine($"\n EDIÇÃO DE REGISTRO DE EQUIPAMENTO");
-            Console.WriteLine("\n --------------------------------------------");
-
+            Console.Clear();
             Console.Write("\n Digite seu novo nome: ");
             Data.Equipments[equipmentIndex].Name = Console.ReadLine();
 
-            Console.WriteLine();
+            Data.Equipments[equipmentIndex].PurchasePrice = Input.verifyDecimalValue("\n Digite o seu novo preço de aquisição: ");
 
-            Data.Equipments[equipmentIndex].PurchasePrice = Input.verifyDecimalValue(" Digite o seu novo preço de aquisição: ");
-
-            Console.WriteLine();
-
-            Console.Write(" Digite o seu novo número de série: ");
+            Console.Clear();
+            Console.Write("\n Digite o seu novo número de série: ");
             Data.Equipments[equipmentIndex].SerialNumber = Console.ReadLine();
 
-            Console.WriteLine();
+            Data.Equipments[equipmentIndex].ManufactureDate = Input.verifyDateTime("\n Digite a novo data de fabricação: ");
 
-            Data.Equipments[equipmentIndex].ManufactureDate = Input.verifyDateTime(" Digite a novo data de fabricação: ");
-
-            Console.WriteLine();
-
-            Console.Write(" Digite o novo nome do fabricante: ");
+            Console.Clear();
+            Console.Write("\n Digite o novo nome do fabricante: ");
             Data.Equipments[equipmentIndex].Manufacturer = Console.ReadLine();
 
+            Console.Clear();
             Console.WriteLine("\n Registro de equipamento atualizado com sucesso!");
-
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
         }

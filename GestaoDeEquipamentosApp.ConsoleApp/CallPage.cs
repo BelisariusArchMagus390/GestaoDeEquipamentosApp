@@ -71,31 +71,24 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
             call.Id = IndexCount;
 
-            Console.WriteLine(" --------------------------------------------");
-            Console.WriteLine($"\n REGISTRO DE CHAMADO");
-            Console.WriteLine("\n --------------------------------------------");
-
+            Console.Clear();
             Console.Write("\n Digite o título do chamado: ");
             call.Title = Console.ReadLine();
 
-            Console.WriteLine();
-
-            Console.WriteLine(" Digite a descrição do chamado: ");
+            Console.Clear();
+            Console.WriteLine("\n Digite a descrição do chamado: ");
             call.Description = Console.ReadLine();
 
             Console.WriteLine();
-
             call.EquipmentRegister = findEquipment();
 
-            Console.WriteLine();
-
-            call.OpenCallDate = Input.verifyDateTime(" Digite a data do chamado: ");
+            call.OpenCallDate = Input.verifyDateTime("\n Digite a data do chamado: ");
 
             Data.Calls.Add(call);
             IndexCount++;
 
+            Console.Clear();
             Console.WriteLine("\n Chamado registrado com sucesso!");
-
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
         }
@@ -132,28 +125,21 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
         {
             int callIndex = findIndexCall();
 
-            Console.WriteLine(" --------------------------------------------");
-            Console.WriteLine($"\n EDIÇÃO DE REGISTRO DE CHAMADO");
-            Console.WriteLine("\n --------------------------------------------");
-
+            Console.Clear();
             Console.Write("\n Digite o título do chamado: ");
             Data.Calls[callIndex].Title = Console.ReadLine();
 
-            Console.WriteLine();
-
-            Console.WriteLine(" Digite a descrição do chamado: ");
+            Console.Clear();
+            Console.WriteLine("\n Digite a descrição do chamado: ");
             Data.Calls[callIndex].Description = Console.ReadLine();
-
-            Console.WriteLine();
 
             Data.Calls[callIndex].EquipmentRegister = findEquipment();
 
             Console.WriteLine();
-
             Data.Calls[callIndex].OpenCallDate = Input.verifyDateTime(" Digite a data do chamado: ");
 
+            Console.Clear();
             Console.WriteLine("\n Registro de chamado atualizado com sucesso!");
-
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
         }
@@ -187,6 +173,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
                     c.Id, c.Title, c.Description, c.EquipmentRegister.Name, c.OpenCallDate.ToShortDateString()
                 );
             }
+
+            Console.WriteLine("\n Aperte ENTER para continuar...");
+            Console.ReadLine();
         }
     }
 }

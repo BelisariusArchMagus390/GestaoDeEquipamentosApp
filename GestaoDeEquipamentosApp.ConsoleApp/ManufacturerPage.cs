@@ -41,28 +41,23 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
             manufacturer.Id = IndexCount;
 
-            Console.WriteLine(" --------------------------------------------");
-            Console.WriteLine($"\n REGISTRO DE FABRICANTE");
-            Console.WriteLine("\n --------------------------------------------");
-
+            Console.Clear();
             Console.Write("\n Digite o nome do fabricante: ");
             manufacturer.Name = Console.ReadLine();
 
-            Console.WriteLine();
-
-            Console.Write(" Digite o e-mail do fabricante: ");
+            Console.Clear();
+            Console.Write("\n Digite o e-mail do fabricante: ");
             manufacturer.Email = Console.ReadLine();
 
-            Console.WriteLine();
-
-            Console.Write(" Digite o telefone do fabricante: ");
+            Console.Clear();
+            Console.Write("\n Digite o telefone do fabricante: ");
             manufacturer.Telephone = Console.ReadLine();
 
             Data.Manufacturers.Add(manufacturer);
             IndexCount++;
 
+            Console.Clear();
             Console.WriteLine("\n Fabricante registrado com sucesso!");
-
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
         }
@@ -99,25 +94,20 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
         {
             int manufacturerIndex = findIndexManufacturer();
 
-            Console.WriteLine(" --------------------------------------------");
-            Console.WriteLine($"\n REGISTRO DE FABRICANTE");
-            Console.WriteLine("\n --------------------------------------------");
-
+            Console.Clear();
             Console.Write("\n Digite o nome do fabricante: ");
             Data.Manufacturers[manufacturerIndex].Name = Console.ReadLine();
 
-            Console.WriteLine();
-
-            Console.Write(" Digite o e-mail do fabricante: ");
+            Console.Clear();
+            Console.Write("\n Digite o e-mail do fabricante: ");
             Data.Manufacturers[manufacturerIndex].Email = Console.ReadLine();
 
-            Console.WriteLine();
-
-            Console.Write(" Digite o telefone do fabricante: ");
+            Console.Clear();
+            Console.Write("\n Digite o telefone do fabricante: ");
             Data.Manufacturers[manufacturerIndex].Telephone = Console.ReadLine();
 
+            Console.Clear();
             Console.WriteLine("\n Registrado de fabricante atualizado com sucesso!");
-
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
         }
@@ -162,6 +152,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
                     m.Id, m.Name, m.Email, m.Telephone, contEquipment
                 );
             }
+
+            Console.WriteLine("\n Aperte ENTER para continuar...");
+            Console.ReadLine();
         }
     }
 }
