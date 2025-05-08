@@ -10,7 +10,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
     {
         public static CallDataBase Data;
         public static Input Input;
-        private static int IndexCount = 0;
+        private static int IndexCount = 1;
 
         public CallPage(CallDataBase callData)
         {
@@ -32,6 +32,71 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             char option = Console.ReadLine()[0];
 
             return option;
+        }
+
+        private Equipment findEquipment()
+        {
+            Equipment equipment = new Equipment();
+            EquipmentDataBase dataEquipment = new EquipmentDataBase();
+
+            while (true)
+            {
+                Console.Clear();
+                Console.Write("\n Entre com o ID do equipamento: ");
+                int id = int.Parse(Console.ReadLine());
+
+                bool equipmentFound = false;
+                foreach (Equipment e in dataEquipment.Equipments)
+                {
+                    if (e.Id == id)
+                    {
+                        equipment = e;
+                        break;
+                    }
+                }
+
+                if (equipmentFound == true)
+                    break;
+                else
+                    Input.showErrorMessage(" Esse equipamento não existe.");
+            }
+
+            return equipment;
+        }
+
+        public void register()
+        {
+            Call call = new Call();
+
+            call.Id = IndexCount;
+
+            Console.WriteLine(" --------------------------------------------");
+            Console.WriteLine($"\n REGISTRO DE CHAMADO");
+            Console.WriteLine("\n --------------------------------------------");
+
+            Console.Write("\n Digite o título do chamado: ");
+            call.Title = Console.ReadLine();
+
+            Console.WriteLine();
+
+            Console.WriteLine(" Digite a descrição do chamado: ");
+            call.Description = Console.ReadLine();
+
+            Console.WriteLine();
+
+            call.EquipmentRegister = findEquipment();
+
+            Console.WriteLine();
+
+            call.OpenCallDate = Input.verifyDateTime(" Digite a data do chamado: ");
+
+            Data.Calls.Add(call);
+            IndexCount++;
+
+            Console.WriteLine("\n Chamado registrado com sucesso!");
+
+            Console.WriteLine("\n Aperte ENTER para continuar...");
+            Console.ReadLine();
         }
     }
 }
