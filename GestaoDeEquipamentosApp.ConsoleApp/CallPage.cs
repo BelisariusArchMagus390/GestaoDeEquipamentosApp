@@ -106,10 +106,10 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             while (true)
             {
                 Console.Clear();
-                Console.Write("\n Entre com o ID do equipamento: ");
+                Console.Write("\n Entre com o ID do chamado: ");
                 int id = int.Parse(Console.ReadLine());
 
-                bool equipmentFound = false;
+                bool callFound = false;
                 foreach (Call c in Data.Calls)
                 {
                     if (c.Id == id)
@@ -119,10 +119,10 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
                     }
                 }
 
-                if (equipmentFound == true)
+                if (callFound == true)
                     break;
                 else
-                    Input.showErrorMessage(" Esse equipamento não existe.");
+                    Input.showErrorMessage(" Esse chamado não existe.");
             }
             return index;
         }

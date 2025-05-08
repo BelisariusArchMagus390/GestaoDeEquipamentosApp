@@ -65,5 +65,60 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
         }
+
+        private int findIndexManufacturer()
+        {
+            int index = 0;
+
+            while (true)
+            {
+                Console.Clear();
+                Console.Write("\n Entre com o ID do fabricante: ");
+                int id = int.Parse(Console.ReadLine());
+
+                bool manufacturerFound = false;
+                foreach (Manufacturer m in Data.Manufacturers)
+                {
+                    if (m.Id == id)
+                    {
+                        Data.Manufacturers.IndexOf(m);
+                        break;
+                    }
+                }
+
+                if (manufacturerFound == true)
+                    break;
+                else
+                    Input.showErrorMessage(" Esse fabricante não existe.");
+            }
+            return index;
+        }
+
+        public void edit()
+        {
+            int manufacturerIndex = findIndexCall();
+
+            Console.WriteLine(" --------------------------------------------");
+            Console.WriteLine($"\n REGISTRO DE FABRICANTE");
+            Console.WriteLine("\n --------------------------------------------");
+
+            Console.Write("\n Digite o nome do fabricante: ");
+            Data.Manufacturers[manufacturerIndex].Name = Console.ReadLine();
+
+            Console.WriteLine();
+
+            Console.Write(" Digite o e-mail do fabricante: ");
+            Data.Manufacturers[manufacturerIndex].Email = Console.ReadLine();
+
+            Console.WriteLine();
+
+            Console.Write(" Digite o telefone do fabricante: ");
+            Data.Manufacturers[manufacturerIndex].Telephone = Console.ReadLine();
+
+            Console.WriteLine("\n Registrado de fabricante atualizado com sucesso!");
+
+            Console.WriteLine("\n Aperte ENTER para continuar...");
+            Console.ReadLine();
+        }
     }
 }
