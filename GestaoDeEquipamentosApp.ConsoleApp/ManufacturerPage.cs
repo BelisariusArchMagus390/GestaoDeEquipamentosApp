@@ -16,5 +16,22 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
         {
             Data = manufacturerData;
         }
+
+        public char showMenu()
+        {
+            Console.WriteLine(" --------------------------------------------");
+            Console.WriteLine($"\n GESTÃO DE FABRICANTES");
+            Console.WriteLine("\n --------------------------------------------");
+
+            Console.WriteLine("\n 1 - Registrar novo fabricante");
+            Console.WriteLine(" 2 - Mostrar fabricantes");
+            Console.WriteLine(" 3 - Atualizar registro de fabricante");
+            Console.WriteLine(" 4 - Excluir registro de fabricante");
+            Console.WriteLine(" 5 - Sair");
+
+            char option = Console.ReadLine()[0];
+
+            return option;
+        }
     }
 }
