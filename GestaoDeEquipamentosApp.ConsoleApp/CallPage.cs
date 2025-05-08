@@ -110,11 +110,11 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
                 int id = int.Parse(Console.ReadLine());
 
                 bool equipmentFound = false;
-                foreach (Call e in Data.Calls)
+                foreach (Call c in Data.Calls)
                 {
-                    if (e.Id == id)
+                    if (c.Id == id)
                     {
-                        Data.Calls.IndexOf(e);
+                        Data.Calls.IndexOf(c);
                         break;
                     }
                 }
@@ -167,6 +167,25 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
+        }
+
+        public void showCalls()
+        {
+            Console.WriteLine(
+                "{0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
+                "Id", "Título", "Descrição", "Equipamento", "Data Abertura"
+            );
+
+            foreach (Call c in Data.Calls)
+            {
+                if (c == null)
+                    continue;
+
+                Console.WriteLine(
+                    "{0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
+                    c.Id, c.Title, c.Description, c.EquipmentRegister.Name, c.OpenCallDate.ToShortDateString()
+                );
+            }
         }
     }
 }
