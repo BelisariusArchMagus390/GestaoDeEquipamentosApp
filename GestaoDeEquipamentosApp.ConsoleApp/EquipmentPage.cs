@@ -57,7 +57,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
         public void register()
         {
-            EquipmentBack equipment = new EquipmentBack();
+            Equipment equipment = new Equipment();
 
             equipment.Id = createId();
 
@@ -101,7 +101,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
                 "Id", "Nome", "Preço Aquisição", "Número Série", "Fabricante", "Data Fabricação"
             );
 
-            foreach (EquipmentBack e in Data.Equipments)
+            foreach (Equipment e in Data.Equipments)
             {
                 if (e == null)
                     continue;
@@ -113,9 +113,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             }
         }
 
-        private EquipmentBack findEquipment()
+        private Equipment findEquipment()
         {
-            EquipmentBack equipment = new EquipmentBack();
+            Equipment equipment = new Equipment();
 
             while (true)
             {
@@ -124,7 +124,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
                 int id = int.Parse(Console.ReadLine());
 
                 bool equipmentFound = false;
-                foreach (EquipmentBack e in Data.Equipments)
+                foreach (Equipment e in Data.Equipments)
                 {
                     if (e.Id == id)
                     {
@@ -153,7 +153,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
                 int id = int.Parse(Console.ReadLine());
 
                 bool equipmentFound = false;
-                foreach (EquipmentBack e in Data.Equipments)
+                foreach (Equipment e in Data.Equipments)
                 {
                     if (e.Id == id)
                     {
@@ -173,7 +173,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
         public void edit()
         {
-            EquipmentBack equipment = findEquipment();
+            Equipment equipment = findEquipment();
 
             Console.WriteLine(" --------------------------------------------");
             Console.WriteLine($"\n EDIÇÃO DE REGISTRO DE EQUIPAMENTO");

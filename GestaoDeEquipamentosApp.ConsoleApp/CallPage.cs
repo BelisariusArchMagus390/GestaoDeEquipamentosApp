@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace GestaoDeEquipamentosApp.ConsoleApp
 {
-    internal class EquipmentDataBase
+    internal class CallPage
     {
-        public List<Equipment> Equipments = new List<Equipment> ();
     }
 }
