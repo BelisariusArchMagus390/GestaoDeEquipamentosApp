@@ -13,6 +13,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
         public static CallDataBase Data;
         public static Input Input = new Input();
         private static int IndexCount = 1;
+        private static EquipmentPage Ep = new EquipmentPage();
 
         public CallPage(CallDataBase callData)
         {
@@ -45,6 +46,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
             while (true)
             {
                 Console.Clear();
+
+                Ep.showEquipments();
+
                 Console.Write("\n Entre com o ID do equipamento: ");
                 int id = int.Parse(Console.ReadLine());
 
@@ -160,11 +164,11 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
             Console.ReadLine();
         }
 
-        public void showCalls()
+        public void showCalls(bool showForSelection = false)
         {
             Console.WriteLine(
-                "{0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
-                "Id", "Título", "Descrição", "Equipamento", "Data Abertura"
+                " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
+                " Id", "Título", "Descrição", "Equipamento", "Data Abertura"
             );
 
             foreach (Call c in Data.Calls)
@@ -173,13 +177,16 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
                     continue;
 
                 Console.WriteLine(
-                    "{0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
+                    " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
                     c.Id, c.Title, c.Description, c.EquipmentRegister.Name, c.OpenCallDate.ToShortDateString()
                 );
             }
 
-            Console.WriteLine("\n Aperte ENTER para continuar...");
-            Console.ReadLine();
+            if (showForSelection == false)
+            {
+                Console.WriteLine("\n Aperte ENTER para continuar...");
+                Console.ReadLine();
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,6 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
         public decimal PurchasePrice { get; set; }
         public string SerialNumber { get; set; }
         public DateTime ManufactureDate { get; set; }
-        public string Manufacturer { get; set; }
+        public Manufacturer Manufacturer { get; set; }
     }
 }

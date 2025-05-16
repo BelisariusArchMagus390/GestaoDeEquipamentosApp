@@ -1,4 +1,5 @@
 ﻿using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
+using GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,14 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
     {
         public static EquipmentDataBase Data;
         public static Input Input = new Input();
-        
+        public static ManufacturerPage Mp;
         public EquipmentPage(EquipmentDataBase equipmentData)
         {
             Data = equipmentData;
+        }
+
+        public EquipmentPage()
+        {
         }
 
         private int createId()
@@ -77,7 +82,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 
             Console.Clear();
             Console.Write("\n Digite o nome do fabricante do equipamento: ");
-            equipment.Manufacturer = Console.ReadLine();
+
+            int manufacturerIndex = Mp.findIndexManufacturer();
+            equipment.Manufacturer = Mp.getData().Manufacturers[manufacturerIndex];
 
             Data.Equipments.Add(equipment);
 
@@ -87,11 +94,11 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
             Console.ReadLine();
         }
 
-        public void showEquipments()
+        public void showEquipments(bool showForSelection = false)
         {
             Console.WriteLine(
-                "{0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20} | {5, -20}",
-                "Id", "Nome", "Preço Aquisição", "Número Série", "Fabricante", "Data Fabricação"
+                " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20} | {5, -20}",
+                " Id", "Nome", "Preço Aquisição", "Número Série", "Fabricante", "Data Fabricação"
             );
 
             foreach (Equipment e in Data.Equipments)
@@ -100,13 +107,16 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
                     continue;
 
                 Console.WriteLine(
-                    "{0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20} | {5, -15}",
+                    " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20} | {5, -15}",
                     e.Id, e.Name, e.PurchasePrice.ToString("C2"), e.SerialNumber, e.Manufacturer, e.ManufactureDate.ToShortDateString()
                 );
             }
 
-            Console.WriteLine("\n Aperte ENTER para continuar...");
-            Console.ReadLine();
+            if (showForSelection == false)
+            {
+                Console.WriteLine("\n Aperte ENTER para continuar...");
+                Console.ReadLine();
+            }
         }
 
         private int findIndexEquipment()
@@ -116,6 +126,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
             while (true)
             {
                 Console.Clear();
+
+                showEquipments();
+
                 Console.Write("\n Entre com o ID do equipamento: ");
                 int id = int.Parse(Console.ReadLine());
 

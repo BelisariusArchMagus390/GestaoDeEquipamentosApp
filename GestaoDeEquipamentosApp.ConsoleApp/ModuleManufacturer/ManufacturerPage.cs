@@ -10,13 +10,18 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
 {
     internal class ManufacturerPage
     {
-        public static ManufacturerDataBase Data;
+        private static ManufacturerDataBase Data;
         public static Input Input = new Input();
         private static int IndexCount = 1;
 
-        public ManufacturerPage(ManufacturerDataBase manufacturerData)
+        public void setData(ManufacturerDataBase data)
         {
-            Data = manufacturerData;
+            Data = data;
+        }
+
+        public ManufacturerDataBase getData()
+        {
+            return Data;
         }
 
         public char showMenu()
@@ -64,13 +69,16 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
             Console.ReadLine();
         }
 
-        private int findIndexManufacturer()
+        public int findIndexManufacturer()
         {
             int index = 0;
 
             while (true)
             {
                 Console.Clear();
+
+                showManufacturers();
+
                 Console.Write("\n Entre com o ID do fabricante: ");
                 int id = int.Parse(Console.ReadLine());
 
@@ -127,14 +135,14 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
             Console.ReadLine();
         }
 
-        public void showManufacturers()
+        public void showManufacturers(bool showForSelection = false)
         {
             EquipmentDataBase equipmentData = new EquipmentDataBase();
             List<Equipment> equipmentsList = equipmentData.Equipments;
 
             Console.WriteLine(
-                "{0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
-                "Id", "Nome", "E-mail", "Telefone", "Quantidade de equipamentos"
+                " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
+                " Id", "Nome", "E-mail", "Telefone", "Quantidade de equipamentos"
             );
 
             foreach (Manufacturer m in Data.Manufacturers)
@@ -146,18 +154,21 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
 
                 for (int i = 0; i < equipmentsList.Count; i++)
                 {
-                    if (equipmentsList[i].Manufacturer == m.Name)
+                    if (m.Name == equipmentsList[i].Manufacturer.Name)
                         contEquipment++;
                 }
 
                 Console.WriteLine(
-                    "{0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
+                    " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
                     m.Id, m.Name, m.Email, m.Telephone, contEquipment
                 );
             }
 
-            Console.WriteLine("\n Aperte ENTER para continuar...");
-            Console.ReadLine();
+            if (showForSelection == false)
+            {
+                Console.WriteLine("\n Aperte ENTER para continuar...");
+                Console.ReadLine();
+            }
         }
     }
 }

@@ -16,10 +16,13 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
         static CallPage cp = new CallPage(callData);
 
         static ManufacturerDataBase manufacturerData = new ManufacturerDataBase();
-        static ManufacturerPage mp = new ManufacturerPage(manufacturerData);
-
+        static ManufacturerPage mp = new ManufacturerPage();
+        
+        
         static void Main(string[] args)
         {
+            mp.setData(manufacturerData);
+
             bool ifExit = false;
             while (ifExit == false)
             {
@@ -30,15 +33,15 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
                 switch (option)
                 {
                     case '1':
-                        equipmentOperations();
+                        manufacturerOperations();
                         break;
 
                     case '2':
-                        callOperations();
+                        equipmentOperations();
                         break;
 
                     case '3':
-                        manufacturerOperations();
+                        callOperations();
                         break;
 
                     case '4':
@@ -58,9 +61,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
             Console.WriteLine($"\n SISTEMA DE GESTÃO");
             Console.WriteLine("\n --------------------------------------------");
 
-            Console.WriteLine("\n 1 - Gestão de equípamentos");
-            Console.WriteLine(" 2 - Gestão de chamados");
-            Console.WriteLine(" 3 - Gestão de fabricantes");
+            Console.WriteLine("\n 1 - Gestão de fabricantes");
+            Console.WriteLine(" 2 - Gestão de equípamentos");
+            Console.WriteLine(" 3 - Gestão de chamados");
             Console.WriteLine(" 4 - Sair");
             Console.Write("\n Escolha uma das opções acima: ");
 
