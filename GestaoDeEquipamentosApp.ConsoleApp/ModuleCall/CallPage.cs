@@ -10,14 +10,17 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
 {
     internal class CallPage
     {
-        public static CallDataBase Data;
-        public static Input Input = new Input();
-        private static int IndexCount = 1;
-        private static EquipmentPage Ep = new EquipmentPage();
+        private static CallDataBase Data;
+        public static Input Input;
+        private static int IndexCount;
+        private static EquipmentPage Ep;
 
-        public CallPage(CallDataBase callData)
+        public CallPage(CallDataBase callData, EquipmentDataBase equipmentData)
         {
             Data = callData;
+            Ep = new EquipmentPage(equipmentData);
+            Input = new Input();
+            IndexCount = 1;
         }
 
         public char showMenu()
@@ -41,7 +44,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
         private Equipment findEquipment()
         {
             Equipment equipment = new Equipment();
-            EquipmentDataBase dataEquipment = new EquipmentDataBase();
+            EquipmentDataBase dataEquipment = Ep.getData();
 
             while (true)
             {
@@ -68,7 +71,6 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
                 else
                     Input.showErrorMessage("Esse equipamento não existe.");
             }
-
             return equipment;
         }
 
@@ -178,7 +180,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
 
                 Console.WriteLine(
                     " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
-                    c.Id, c.Title, c.Description, c.EquipmentRegister.Name, c.OpenCallDate.ToShortDateString()
+                    " "+c.Id, c.Title, c.Description, c.EquipmentRegister.Name, c.OpenCallDate.ToShortDateString()
                 );
             }
 

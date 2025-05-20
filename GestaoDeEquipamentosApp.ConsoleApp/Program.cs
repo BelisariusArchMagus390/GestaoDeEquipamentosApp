@@ -13,7 +13,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
         static EquipmentPage ep = new EquipmentPage(equipmentData);
 
         static CallDataBase callData = new CallDataBase();
-        static CallPage cp = new CallPage(callData);
+        static CallPage cp = new CallPage(callData, equipmentData);
 
         static ManufacturerDataBase manufacturerData = new ManufacturerDataBase();
         static ManufacturerPage mp = new ManufacturerPage();

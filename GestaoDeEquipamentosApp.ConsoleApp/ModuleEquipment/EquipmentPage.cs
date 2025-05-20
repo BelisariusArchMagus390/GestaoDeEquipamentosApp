@@ -10,12 +10,19 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 {
     internal class EquipmentPage
     {
-        public static EquipmentDataBase Data;
+        private static EquipmentDataBase Data;
         public static Input Input = new Input();
         public static ManufacturerPage Mp;
+
+        public EquipmentDataBase getData()
+        {
+            return Data;
+        }
+
         public EquipmentPage(EquipmentDataBase equipmentData)
         {
             Data = equipmentData;
+            Mp = new ManufacturerPage();
         }
 
         public EquipmentPage()
@@ -80,9 +87,6 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 
             equipment.ManufactureDate = Input.verifyDateTime("\n Digite a data de fabricação: ");
 
-            Console.Clear();
-            Console.Write("\n Digite o nome do fabricante do equipamento: ");
-
             int manufacturerIndex = Mp.findIndexManufacturer();
             equipment.Manufacturer = Mp.getData().Manufacturers[manufacturerIndex];
 
@@ -108,7 +112,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 
                 Console.WriteLine(
                     " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20} | {5, -15}",
-                    e.Id, e.Name, e.PurchasePrice.ToString("C2"), e.SerialNumber, e.Manufacturer, e.ManufactureDate.ToShortDateString()
+                    " "+e.Id, e.Name, e.PurchasePrice.ToString("C2"), e.SerialNumber, e.Manufacturer.Name, e.ManufactureDate.ToShortDateString()
                 );
             }
 
@@ -169,7 +173,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 
             Console.Clear();
             Console.Write("\n Digite o novo nome do fabricante: ");
-            Data.Equipments[equipmentIndex].Manufacturer = Console.ReadLine();
+            Data.Equipments[equipmentIndex].Manufacturer.Name = Console.ReadLine();
 
             Console.Clear();
             Console.WriteLine("\n Registro de equipamento atualizado com sucesso!");

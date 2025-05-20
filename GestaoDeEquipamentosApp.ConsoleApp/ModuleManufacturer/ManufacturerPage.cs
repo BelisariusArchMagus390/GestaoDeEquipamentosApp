@@ -160,7 +160,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
 
                 Console.WriteLine(
                     " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
-                    m.Id, m.Name, m.Email, m.Telephone, contEquipment
+                    " "+m.Id, m.Name, m.Email, m.Telephone, contEquipment
                 );
             }
 
