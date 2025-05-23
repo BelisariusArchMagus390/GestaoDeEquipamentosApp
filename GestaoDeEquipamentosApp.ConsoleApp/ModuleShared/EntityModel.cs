@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
 {
-    internal class EntityModel
+    public abstract class EntityModel
     {
+        public int Id { get; set; }
     }
 }
