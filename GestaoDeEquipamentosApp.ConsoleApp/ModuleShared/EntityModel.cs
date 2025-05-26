@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
+﻿namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
 {
     public abstract class EntityModel
     {
         public int Id { get; set; }
+
+        public abstract void updateRegister(EntityModel updatedRegister);
+        public abstract string validate();
     }
 }
