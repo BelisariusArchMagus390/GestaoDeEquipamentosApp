@@ -52,5 +52,23 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.Utilities
                     showErrorMessage(" Esse não é um valor de data.");
             }
         }
+
+        // verifica se o input é um inteiro
+        public int verifyIntValue(string message)
+        {
+            while (true)
+            {
+                Console.Clear();
+                Console.Write(message);
+                string value = Console.ReadLine();
+
+                if (int.TryParse(value, out int intValue))
+                {
+                    return intValue;
+                }
+                else
+                    showErrorMessage(" Esse não é um valor inteiro.");
+            }
+        }
     }
 }

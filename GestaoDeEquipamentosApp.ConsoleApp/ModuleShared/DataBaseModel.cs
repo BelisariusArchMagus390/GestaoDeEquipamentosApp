@@ -21,14 +21,14 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
             IndexCount++;
         }
 
-        public bool editRegister(int id, EntityModel registroAtualizado)
+        public bool editRegister(int id, EntityModel updatedRegister)
         {
             EntityModel register = selectRegisterById(id);
 
             if (register == null)
                 return false;
 
-            register.updateRegister(register);
+            register.updateRegister(updatedRegister);
 
             return true;
         }
