@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleShared;
 
-namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
-{
-    internal class ManufacturerDataBase
-    {
-        public List<Manufacturer> Manufacturers = new List<Manufacturer>();
-    }
-}
+namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer;
+
+public class ManufacturerDataBase : DataBaseModel;

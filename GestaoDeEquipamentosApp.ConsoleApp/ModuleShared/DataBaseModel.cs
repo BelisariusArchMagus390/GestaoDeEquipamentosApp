@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
 {
-    internal class DataBaseModel
+    public abstract class DataBaseModel
     {
+        public List<EntityModel> Entity = new List<EntityModel>();
     }
 }

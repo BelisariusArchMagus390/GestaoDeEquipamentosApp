@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleShared;
 
-namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
-{
-    internal class EquipmentDataBase
-    {
-        public List<Equipment> Equipments = new List<Equipment> ();
-    }
-}
+namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment;
+
+public class EquipmentDataBase : DataBaseModel;
+
