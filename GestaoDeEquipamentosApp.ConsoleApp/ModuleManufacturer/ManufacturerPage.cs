@@ -44,7 +44,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
             }
         }
 
-        protected override EntityModel getDate()
+        protected override Manufacturer getDate()
         {
             Manufacturer manufacturer = new Manufacturer();
 
