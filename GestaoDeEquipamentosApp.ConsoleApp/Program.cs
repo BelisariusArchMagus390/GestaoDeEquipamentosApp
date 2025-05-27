@@ -9,20 +9,24 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
     {
         static Input input = new Input();
 
-        static EquipmentDataBase equipmentData = new EquipmentDataBase();
-        static EquipmentPage ep = new EquipmentPage(equipmentData);
-
-        static CallDataBase callData = new CallDataBase();
-        static CallPage cp = new CallPage(callData, equipmentData);
-
         static ManufacturerDataBase manufacturerData = new ManufacturerDataBase();
-        static ManufacturerPage mp = new ManufacturerPage();
-        
-        
+        static EquipmentDataBase equipmentData = new EquipmentDataBase();
+        static CallDataBase callData = new CallDataBase();
+
+        static ManufacturerPage mp = new ManufacturerPage(manufacturerData);
+
+        static EquipmentPage ep = new EquipmentPage(
+            equipmentData, 
+            manufacturerData
+        );
+
+        static CallPage cp = new CallPage(
+            callData,
+            equipmentData
+        );
+
         static void Main(string[] args)
         {
-            mp.setData(manufacturerData);
-
             bool ifExit = false;
             while (ifExit == false)
             {
@@ -90,7 +94,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
                     case '2':
                         Console.Clear();
-                        ep.showEquipments();
+                        ep.showRegisters();
                         break;
 
                     case '3':
@@ -132,7 +136,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
                     case '2':
                         Console.Clear();
-                        cp.showCalls();
+                        cp.showRegisters();
                         break;
 
                     case '3':
@@ -174,7 +178,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp
 
                     case '2':
                         Console.Clear();
-                        mp.showManufacturers();
+                        mp.showRegisters();
                         break;
 
                     case '3':

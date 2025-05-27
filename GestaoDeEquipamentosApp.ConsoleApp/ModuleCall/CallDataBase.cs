@@ -2,4 +2,4 @@
 
 namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall;
 
-internal class CallDataBase : DataBaseModel;
+public class CallDataBase : DataBaseModel;

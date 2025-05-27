@@ -1,4 +1,5 @@
 ﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment;
+using GestaoDeEquipamentosApp.ConsoleApp.ModuleShared;
 using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
 using System;
 using System.Collections.Generic;
@@ -8,77 +9,49 @@ using System.Threading.Tasks;
 
 namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
 {
-    internal class CallPage
+    public class CallPage : PageModel
     {
-        private static CallDataBase Data;
-        public static Input Input;
-        private static int IndexCount;
-        private static EquipmentPage Ep;
+        static Input Input = new Input();
+        private CallDataBase CallData;
+        private EquipmentDataBase EquipmentData;
 
-        public CallPage(CallDataBase callData, EquipmentDataBase equipmentData)
+        public CallPage(
+            CallDataBase CallData,
+            EquipmentDataBase EquipmentData
+        ) : base("Chamado", CallData)
         {
-            Data = callData;
-            Ep = new EquipmentPage(equipmentData);
-            Input = new Input();
-            IndexCount = 1;
+            this.CallData = CallData;
+            this.EquipmentData = EquipmentData;
         }
 
-        public char showMenu()
+        public override void showRegisters(bool showForSelection = false)
         {
-            Console.WriteLine(" --------------------------------------------");
-            Console.WriteLine($"\n GESTÃO DE CHAMADOS");
-            Console.WriteLine("\n --------------------------------------------");
+            Console.WriteLine(
+                " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
+                " Id", "Título", "Descrição", "Equipamento", "Data Abertura"
+            );
 
-            Console.WriteLine("\n 1 - Registrar novo chamado");
-            Console.WriteLine(" 2 - Mostrar chamados");
-            Console.WriteLine(" 3 - Atualizar registro de chamado");
-            Console.WriteLine(" 4 - Excluir chamado");
-            Console.WriteLine(" 5 - Sair");
-
-            Console.Write("\n Escolha uma das opções acima: ");
-            char option = Console.ReadLine()[0];
-
-            return option;
-        }
-
-        private Equipment findEquipment()
-        {
-            Equipment equipment = new Equipment();
-            EquipmentDataBase dataEquipment = Ep.getData();
-
-            while (true)
+            foreach (Call c in CallData.selectRegister())
             {
-                Console.Clear();
+                if (c == null)
+                    continue;
 
-                Ep.showEquipments();
-
-                Console.Write("\n Entre com o ID do equipamento: ");
-                int id = int.Parse(Console.ReadLine());
-
-                bool equipmentFound = false;
-                foreach (Equipment e in dataEquipment.Equipments)
-                {
-                    if (e.Id == id)
-                    {
-                        equipment = e;
-                        equipmentFound = true;
-                        break;
-                    }
-                }
-
-                if (equipmentFound == true)
-                    break;
-                else
-                    Input.showErrorMessage("Esse equipamento não existe.");
+                Console.WriteLine(
+                    " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
+                    " " + c.Id, c.Title, c.Description, c.EquipmentRegister.Name, c.OpenCallDate.ToShortDateString()
+                );
             }
-            return equipment;
+
+            if (showForSelection == false)
+            {
+                Console.WriteLine("\n Aperte ENTER para continuar...");
+                Console.ReadLine();
+            }
         }
 
-        public void register()
+        protected override Call getDate()
         {
             Call call = new Call();
-
-            call.Id = IndexCount;
 
             Console.Clear();
             Console.Write("\n Digite o título do chamado: ");
@@ -88,107 +61,26 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
             Console.WriteLine("\n Digite a descrição do chamado: ");
             call.Description = Console.ReadLine();
 
-            Console.WriteLine();
-            call.EquipmentRegister = findEquipment();
-
-            call.OpenCallDate = Input.verifyDateTime("\n Digite a data do chamado: ");
-
-            Data.Calls.Add(call);
-            IndexCount++;
-
-            Console.Clear();
-            Console.WriteLine("\n Chamado registrado com sucesso!");
-            Console.WriteLine("\n Aperte ENTER para continuar...");
-            Console.ReadLine();
-        }
-
-        private int findIndexCall()
-        {
-            int index = 0;
+            Equipment equipment;
+            int id;
 
             while (true)
             {
                 Console.Clear();
-                Console.Write("\n Entre com o ID do chamado: ");
-                int id = int.Parse(Console.ReadLine());
+                id = Input.verifyIntValue("\n Entre com o ID do equipamento que deseja: ");
 
-                bool callFound = false;
-                foreach (Call c in Data.Calls)
-                {
-                    if (c.Id == id)
-                    {
-                        Data.Calls.IndexOf(c);
-                        callFound = true;
-                        break;
-                    }
-                }
+                equipment = (Equipment)EquipmentData.selectRegisterById(id);
 
-                if (callFound == true)
-                    break;
+                if (equipment == null)
+                    Console.WriteLine($"\n Erro! Não foi encontrado o ID desejado.");
                 else
-                    Input.showErrorMessage("Esse chamado não existe.");
+                    break;
             }
-            return index;
-        }
+            call.EquipmentRegister = equipment;
 
-        public void edit()
-        {
-            int callIndex = findIndexCall();
+            call.OpenCallDate = Input.verifyDateTime("\n Digite a data do chamado: ");
 
-            Console.Clear();
-            Console.Write("\n Digite o título do chamado: ");
-            Data.Calls[callIndex].Title = Console.ReadLine();
-
-            Console.Clear();
-            Console.WriteLine("\n Digite a descrição do chamado: ");
-            Data.Calls[callIndex].Description = Console.ReadLine();
-
-            Data.Calls[callIndex].EquipmentRegister = findEquipment();
-
-            Console.WriteLine();
-            Data.Calls[callIndex].OpenCallDate = Input.verifyDateTime(" Digite a data do chamado: ");
-
-            Console.Clear();
-            Console.WriteLine("\n Registro de chamado atualizado com sucesso!");
-            Console.WriteLine("\n Aperte ENTER para continuar...");
-            Console.ReadLine();
-        }
-
-        public void delete()
-        {
-            int callIndex = findIndexCall();
-
-            Data.Calls.RemoveAt(callIndex);
-
-            Console.Clear();
-            Console.WriteLine("\n Registro de chamado removido com sucesso!");
-            Console.WriteLine("\n Aperte ENTER para continuar...");
-            Console.ReadLine();
-        }
-
-        public void showCalls(bool showForSelection = false)
-        {
-            Console.WriteLine(
-                " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
-                " Id", "Título", "Descrição", "Equipamento", "Data Abertura"
-            );
-
-            foreach (Call c in Data.Calls)
-            {
-                if (c == null)
-                    continue;
-
-                Console.WriteLine(
-                    " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
-                    " "+c.Id, c.Title, c.Description, c.EquipmentRegister.Name, c.OpenCallDate.ToShortDateString()
-                );
-            }
-
-            if (showForSelection == false)
-            {
-                Console.WriteLine("\n Aperte ENTER para continuar...");
-                Console.ReadLine();
-            }
+            return call;
         }
     }
 }

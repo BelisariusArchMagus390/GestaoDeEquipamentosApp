@@ -5,75 +5,54 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GestaoDeEquipamentosApp.ConsoleApp.ModuleShared;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 {
-    internal class EquipmentPage
+    public class EquipmentPage : PageModel
     {
-        private static EquipmentDataBase Data;
-        public static Input Input = new Input();
-        public static ManufacturerPage Mp;
+        static Input Input = new Input();
+        private EquipmentDataBase EquipmentData;
+        private ManufacturerDataBase ManufacturerData;
 
-        public EquipmentDataBase getData()
+        public EquipmentPage(
+            EquipmentDataBase EquipmentData,
+            ManufacturerDataBase ManufacturerData
+        ) : base("Equipamento", EquipmentData)
         {
-            return Data;
+            this.EquipmentData = EquipmentData;
+            this.ManufacturerData = ManufacturerData;
         }
 
-        public EquipmentPage(EquipmentDataBase equipmentData)
+        public override void showRegisters(bool showForSelection = false)
         {
-            Data = equipmentData;
-            Mp = new ManufacturerPage();
-        }
+            Console.WriteLine(
+                " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20} | {5, -20}",
+                " Id", "Nome", "Preço Aquisição", "Número Série", "Fabricante", "Data Fabricação"
+            );
 
-        public EquipmentPage()
-        {
-        }
-
-        private int createId()
-        {
-            Random randomId = new Random();
-            int id = 0;
-
-            while (true)
+            foreach (Equipment e in EquipmentData.selectRegister())
             {
-                id = randomId.Next(100, 200);
+                if (e == null)
+                    continue;
 
-                bool equal = false;
-                foreach (var i in Data.Equipments)
-                {
-                    if (i.Id == id)
-                        equal = true;
-                }
-
-                if (equal == false)
-                    break;
+                Console.WriteLine(
+                    " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20} | {5, -15}",
+                    " " + e.Id, e.Name, e.PurchasePrice.ToString("C2"), e.SerialNumber, e.Manufacturer.Name, e.ManufactureDate.ToShortDateString()
+                );
             }
-            return id;
+
+            if (showForSelection == false)
+            {
+                Console.WriteLine("\n Aperte ENTER para continuar...");
+                Console.ReadLine();
+            }
         }
 
-        public char showMenu()
-        {
-            Console.WriteLine(" --------------------------------------------");
-            Console.WriteLine($"\n GESTÃO DE EQUIPAMENTOS");
-            Console.WriteLine("\n --------------------------------------------");
-
-            Console.WriteLine("\n 1 - Registrar novo equipamento");
-            Console.WriteLine(" 2 - Mostrar equipamentos");
-            Console.WriteLine(" 3 - Atualizar registro de equipamento");
-            Console.WriteLine(" 4 - Excluir equipamentos");
-            Console.WriteLine(" 5 - Sair");
-
-            Console.Write("\n Escolha uma das opções acima: ");
-            char option = Console.ReadLine()[0];
-
-            return option;
-        }
-
-        public void register()
+        protected override Equipment getDate()
         {
             Equipment equipment = new Equipment();
-
-            equipment.Id = createId();
 
             Console.Clear();
             Console.Write("\n Digite o nome do equipamento: ");
@@ -87,110 +66,25 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 
             equipment.ManufactureDate = Input.verifyDateTime("\n Digite a data de fabricação: ");
 
-            int manufacturerIndex = Mp.findIndexManufacturer();
-            equipment.Manufacturer = Mp.getData().Manufacturers[manufacturerIndex];
-
-            Data.Equipments.Add(equipment);
-
-            Console.Clear();
-            Console.WriteLine("\n Equipamento registrado com sucesso!");
-            Console.WriteLine("\n Aperte ENTER para continuar...");
-            Console.ReadLine();
-        }
-
-        public void showEquipments(bool showForSelection = false)
-        {
-            Console.WriteLine(
-                " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20} | {5, -20}",
-                " Id", "Nome", "Preço Aquisição", "Número Série", "Fabricante", "Data Fabricação"
-            );
-
-            foreach (Equipment e in Data.Equipments)
-            {
-                if (e == null)
-                    continue;
-
-                Console.WriteLine(
-                    " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20} | {5, -15}",
-                    " "+e.Id, e.Name, e.PurchasePrice.ToString("C2"), e.SerialNumber, e.Manufacturer.Name, e.ManufactureDate.ToShortDateString()
-                );
-            }
-
-            if (showForSelection == false)
-            {
-                Console.WriteLine("\n Aperte ENTER para continuar...");
-                Console.ReadLine();
-            }
-        }
-
-        private int findIndexEquipment()
-        {
-            int index = 0;
+            Manufacturer manufacturer;
+            int id;
 
             while (true)
             {
                 Console.Clear();
+                id = Input.verifyIntValue("\n Entre com o ID do fornecedor que deseja: ");
 
-                showEquipments();
+                manufacturer = (Manufacturer)ManufacturerData.selectRegisterById(id);
 
-                Console.Write("\n Entre com o ID do equipamento: ");
-                int id = int.Parse(Console.ReadLine());
-
-                bool equipmentFound = false;
-                foreach (Equipment e in Data.Equipments)
-                {
-                    if (e.Id == id)
-                    {
-                        Data.Equipments.IndexOf(e);
-                        equipmentFound = true;
-                        break;
-                    }
-                }
-
-                if (equipmentFound == true)
-                    break;
+                if (manufacturer == null)
+                    Console.WriteLine($"\n Erro! Não foi encontrado o ID desejado.");
                 else
-                    Input.showErrorMessage("Esse equipamento não existe.");
+                    break;
             }
-            return index;
-        }
 
-        public void edit()
-        {
-            int equipmentIndex = findIndexEquipment();
+            equipment.Manufacturer = manufacturer;
 
-            Console.Clear();
-            Console.Write("\n Digite seu novo nome: ");
-            Data.Equipments[equipmentIndex].Name = Console.ReadLine();
-
-            Data.Equipments[equipmentIndex].PurchasePrice = Input.verifyDecimalValue("\n Digite o seu novo preço de aquisição: ");
-
-            Console.Clear();
-            Console.Write("\n Digite o seu novo número de série: ");
-            Data.Equipments[equipmentIndex].SerialNumber = Console.ReadLine();
-
-            Data.Equipments[equipmentIndex].ManufactureDate = Input.verifyDateTime("\n Digite a novo data de fabricação: ");
-
-            Console.Clear();
-            Console.Write("\n Digite o novo nome do fabricante: ");
-            Data.Equipments[equipmentIndex].Manufacturer.Name = Console.ReadLine();
-
-            Console.Clear();
-            Console.WriteLine("\n Registro de equipamento atualizado com sucesso!");
-            Console.WriteLine("\n Aperte ENTER para continuar...");
-            Console.ReadLine();
-        }
-
-        public void delete()
-        {
-            int equipmentIndex = findIndexEquipment();
-
-            Data.Equipments.RemoveAt(equipmentIndex);
-
-            Console.Clear();
-            Console.WriteLine("\n Registro de equipamento removido com sucesso!");
-            Console.WriteLine("\n Aperte ENTER para continuar...");
-            Console.ReadLine();
+            return equipment;
         }
     }
 }

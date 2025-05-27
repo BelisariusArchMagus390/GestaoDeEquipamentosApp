@@ -53,14 +53,13 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
 
         public EntityModel selectRegisterById(int id)
         {
-            foreach (Manufacturer m in Registers)
+            foreach (EntityModel m in Registers)
             {
                 if (m.Id == id)
                 {
                     return m;
                 }
             }
-
             return null;
         }
     }
