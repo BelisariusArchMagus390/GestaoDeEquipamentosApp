@@ -1,5 +1,4 @@
 ﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment;
-using GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer;
 using GestaoDeEquipamentosApp.ConsoleApp.ModuleShared;
 using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
 using System;
@@ -12,7 +11,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
 {
     public class CallPage : PageModel
     {
-        static Input Input;
+        static Input Input = new Input();
         private CallDataBase CallData;
         private EquipmentDataBase EquipmentData;
 

@@ -12,7 +12,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
     {
         protected string EntityName;
         protected DataBaseModel DataBase;
-        static Input InputVer;
+        static Input Input = new Input();
 
         protected PageModel(string entityName, DataBaseModel dataBase)
         {
@@ -70,7 +70,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
         {
             showRegisters(true);
 
-            int id = InputVer.verifyIntValue("\n Entre com o ID do registro que deseja: ");
+            int id = Input.verifyIntValue("\n Entre com o ID do registro que deseja: ");
 
             EntityModel updatedRegister = getDate();
 
@@ -89,7 +89,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
         {
             showRegisters(true);
 
-            int id = InputVer.verifyIntValue("\n Entre com o ID do registro que deseja: ");
+            int id = Input.verifyIntValue("\n Entre com o ID do registro que deseja: ");
 
             Console.Clear();
 

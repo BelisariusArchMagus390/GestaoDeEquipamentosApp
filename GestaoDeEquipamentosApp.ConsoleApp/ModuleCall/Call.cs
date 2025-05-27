@@ -12,7 +12,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
 {
-    internal class Call : EntityModel
+    public class Call : EntityModel
     {
         public string Title { get; set; }
         public string Description { get; set; }
