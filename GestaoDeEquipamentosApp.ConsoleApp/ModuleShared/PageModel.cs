@@ -68,7 +68,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
 
         public void edit()
         {
-            showRegisters();
+            showRegisters(true);
 
             int id = InputVer.verifyIntValue("\n Entre com o ID do registro que deseja: ");
 
@@ -87,7 +87,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
 
         public void delete()
         {
-            showRegisters();
+            showRegisters(true);
 
             int id = InputVer.verifyIntValue("\n Entre com o ID do registro que deseja: ");
 
