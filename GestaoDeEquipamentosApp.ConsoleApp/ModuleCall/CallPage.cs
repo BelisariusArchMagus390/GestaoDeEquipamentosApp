@@ -1,10 +1,10 @@
 ﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment;
 using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using GestaoDeEquipamentosApp.Domain.ModuleCall;
+using GestaoDeEquipamentosApp.Domain.ModuleEquipment;
+using GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleCall;
+using GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleEquipment;
+using GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleManufacturer;
 
 namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
 {
@@ -15,10 +15,10 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
         private static int IndexCount;
         private static EquipmentPage Ep;
 
-        public CallPage(CallDataBase callData, EquipmentDataBase equipmentData)
+        public CallPage(CallDataBase callData, EquipmentDataBase equipmentData, ManufacturerDataBase manufacturerData)
         {
             Data = callData;
-            Ep = new EquipmentPage(equipmentData);
+            Ep = new EquipmentPage(equipmentData, manufacturerData);
             Input = new Input();
             IndexCount = 1;
         }
@@ -56,7 +56,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
                 int id = int.Parse(Console.ReadLine());
 
                 bool equipmentFound = false;
-                foreach (Equipment e in dataEquipment.Equipments)
+                foreach (Equipment e in dataEquipment.selectRegister())
                 {
                     if (e.Id == id)
                     {
@@ -93,7 +93,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
 
             call.OpenCallDate = Input.verifyDateTime("\n Digite a data do chamado: ");
 
-            Data.Calls.Add(call);
+            Data.selectRegister().Add(call);
             IndexCount++;
 
             Console.Clear();
@@ -113,11 +113,11 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
                 int id = int.Parse(Console.ReadLine());
 
                 bool callFound = false;
-                foreach (Call c in Data.Calls)
+                foreach (Call c in Data.selectRegister())
                 {
                     if (c.Id == id)
                     {
-                        Data.Calls.IndexOf(c);
+                        Data.selectRegister().IndexOf(c);
                         callFound = true;
                         break;
                     }
@@ -137,16 +137,16 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
 
             Console.Clear();
             Console.Write("\n Digite o título do chamado: ");
-            Data.Calls[callIndex].Title = Console.ReadLine();
+            Data.selectRegister()[callIndex].Title = Console.ReadLine();
 
             Console.Clear();
             Console.WriteLine("\n Digite a descrição do chamado: ");
-            Data.Calls[callIndex].Description = Console.ReadLine();
+            Data.selectRegister()[callIndex].Description = Console.ReadLine();
 
-            Data.Calls[callIndex].EquipmentRegister = findEquipment();
+            Data.selectRegister()[callIndex].EquipmentRegister = findEquipment();
 
             Console.WriteLine();
-            Data.Calls[callIndex].OpenCallDate = Input.verifyDateTime(" Digite a data do chamado: ");
+            Data.selectRegister()[callIndex].OpenCallDate = Input.verifyDateTime(" Digite a data do chamado: ");
 
             Console.Clear();
             Console.WriteLine("\n Registro de chamado atualizado com sucesso!");
@@ -158,7 +158,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
         {
             int callIndex = findIndexCall();
 
-            Data.Calls.RemoveAt(callIndex);
+            Data.selectRegister().RemoveAt(callIndex);
 
             Console.Clear();
             Console.WriteLine("\n Registro de chamado removido com sucesso!");
@@ -173,7 +173,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
                 " Id", "Título", "Descrição", "Equipamento", "Data Abertura"
             );
 
-            foreach (Call c in Data.Calls)
+            foreach (Call c in Data.selectRegister())
             {
                 if (c == null)
                     continue;

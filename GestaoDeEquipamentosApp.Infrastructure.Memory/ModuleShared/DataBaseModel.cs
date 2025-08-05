@@ -1,29 +1,22 @@
-﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer;
-using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using GestaoDeEquipamentosApp.Domain.ModuleShared;
 
-namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
+namespace GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleShared
 {
-    public abstract class DataBaseModel
+    public abstract class DataBaseModel<Type> where Type : EntityModel<Type>
     {
-        private List<EntityModel> Registers = new List<EntityModel>();
+        private List<Type> Registers = new List<Type>();
         private static int IndexCount = 0;
 
-        public void addRegister(EntityModel newRegister)
+        public void addRegister(Type newRegister)
         {
             newRegister.Id = IndexCount;
             Registers.Add(newRegister);
             IndexCount++;
         }
 
-        public bool editRegister(int id, EntityModel updatedRegister)
+        public bool editRegister(int id, Type updatedRegister)
         {
-            EntityModel register = selectRegisterById(id);
+            Type register = selectRegisterById(id);
 
             if (register == null)
                 return false;
@@ -35,7 +28,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
 
         public bool deleteRegister(int id)
         {
-            EntityModel register = selectRegisterById(id);
+            Type register = selectRegisterById(id);
 
             if (register != null)
             {
@@ -46,21 +39,20 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
             return false;
         }
 
-        public List<EntityModel> selectRegister()
+        public List<Type> selectRegister()
         {
             return Registers;
         }
 
-        public EntityModel selectRegisterById(int id)
+        public Type selectRegisterById(int id)
         {
-            foreach (Manufacturer m in Registers)
+            foreach (Type m in Registers)
             {
                 if (m.Id == id)
                 {
                     return m;
                 }
             }
-
             return null;
         }
     }

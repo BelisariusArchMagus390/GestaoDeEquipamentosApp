@@ -1,20 +1,16 @@
 ﻿using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using GestaoDeEquipamentosApp.Domain.ModuleShared;
+using GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleShared;
 
 namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
 {
-    public abstract class PageModel
+    public abstract class PageModel<T> where T : EntityModel<T>
     {
         protected string EntityName;
-        protected DataBaseModel DataBase;
+        protected DataBaseModel<T> DataBase;
         static Input InputVer;
 
-        protected PageModel(string entityName, DataBaseModel dataBase)
+        protected PageModel(string entityName, DataBaseModel<T> dataBase)
         {
             this.EntityName = entityName;
             this.DataBase = dataBase;
@@ -40,7 +36,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
 
         public void register()
         {
-            EntityModel newRegister = getDate();
+            T newRegister = getDate();
 
             string errors = newRegister.validate();
 
@@ -72,7 +68,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
 
             int id = InputVer.verifyIntValue("\n Entre com o ID do registro que deseja: ");
 
-            EntityModel updatedRegister = getDate();
+            T updatedRegister = getDate();
 
             Console.Clear();
 
@@ -104,6 +100,6 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
 
         public abstract void showRegisters(bool showForSelection = false);
 
-        protected abstract EntityModel getDate();
+        protected abstract T getDate();
     }
 }

@@ -1,10 +1,8 @@
-﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment;
-using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
+using GestaoDeEquipamentosApp.Domain.ModuleEquipment;
+using GestaoDeEquipamentosApp.Domain.ModuleManufacturer;
+using GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleEquipment;
+using GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleManufacturer;
 
 namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
 {
@@ -14,7 +12,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
         public static Input Input = new Input();
         private static int IndexCount = 1;
 
-        public void setData(ManufacturerDataBase data)
+        public ManufacturerPage(ManufacturerDataBase data)
         {
             Data = data;
         }
@@ -60,7 +58,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
             Console.Write("\n Digite o telefone do fabricante: ");
             manufacturer.Telephone = Console.ReadLine();
 
-            Data.Manufacturers.Add(manufacturer);
+            Data.selectRegister().Add(manufacturer);
             IndexCount++;
 
             Console.Clear();
@@ -83,11 +81,11 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
                 int id = int.Parse(Console.ReadLine());
 
                 bool manufacturerFound = false;
-                foreach (Manufacturer m in Data.Manufacturers)
+                foreach (Manufacturer m in Data.selectRegister())
                 {
                     if (m.Id == id)
                     {
-                        Data.Manufacturers.IndexOf(m);
+                        Data.selectRegister().IndexOf(m);
                         manufacturerFound = true;
                         break;
                     }
@@ -107,15 +105,15 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
 
             Console.Clear();
             Console.Write("\n Digite o nome do fabricante: ");
-            Data.Manufacturers[manufacturerIndex].Name = Console.ReadLine();
+            Data.selectRegister()[manufacturerIndex].Name = Console.ReadLine();
 
             Console.Clear();
             Console.Write("\n Digite o e-mail do fabricante: ");
-            Data.Manufacturers[manufacturerIndex].Email = Console.ReadLine();
+            Data.selectRegister()[manufacturerIndex].Email = Console.ReadLine();
 
             Console.Clear();
             Console.Write("\n Digite o telefone do fabricante: ");
-            Data.Manufacturers[manufacturerIndex].Telephone = Console.ReadLine();
+            Data.selectRegister()[manufacturerIndex].Telephone = Console.ReadLine();
 
             Console.Clear();
             Console.WriteLine("\n Registrado de fabricante atualizado com sucesso!");
@@ -127,7 +125,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
         {
             int manufacturerIndex = findIndexManufacturer();
 
-            Data.Manufacturers.RemoveAt(manufacturerIndex);
+            Data.selectRegister().RemoveAt(manufacturerIndex);
 
             Console.Clear();
             Console.WriteLine("\n Registro de fabricante removido com sucesso!");
@@ -138,14 +136,14 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
         public void showManufacturers(bool showForSelection = false)
         {
             EquipmentDataBase equipmentData = new EquipmentDataBase();
-            List<Equipment> equipmentsList = equipmentData.Equipments;
+            List<Equipment> equipmentsList = equipmentData.selectRegister();
 
             Console.WriteLine(
                 " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
                 " Id", "Nome", "E-mail", "Telefone", "Quantidade de equipamentos"
             );
 
-            foreach (Manufacturer m in Data.Manufacturers)
+            foreach (Manufacturer m in Data.selectRegister())
             {
                 if (m == null)
                     continue;

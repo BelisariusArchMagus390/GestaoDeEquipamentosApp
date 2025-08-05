@@ -1,18 +1,9 @@
-﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment;
-using GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer;
-using GestaoDeEquipamentosApp.ConsoleApp.ModuleShared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using GestaoDeEquipamentosApp.Domain.ModuleEquipment;
+using GestaoDeEquipamentosApp.Domain.ModuleShared;
 
-namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
+namespace GestaoDeEquipamentosApp.Domain.ModuleCall
 {
-    internal class Call : EntityModel
+    public class Call : EntityModel<Call>
     {
         public string Title { get; set; }
         public string Description { get; set; }
@@ -38,9 +29,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
             return errors;
         }
 
-        public override void updateRegister(EntityModel updatedRegister)
+        public override void updateRegister(Call updatedRegister)
         {
-            Call callUpdated = (Call)updatedRegister;
+            Call callUpdated = updatedRegister;
 
             this.Title = callUpdated.Title;
             this.Description = callUpdated.Description;

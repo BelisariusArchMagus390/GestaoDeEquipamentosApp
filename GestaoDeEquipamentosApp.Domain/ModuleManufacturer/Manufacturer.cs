@@ -1,10 +1,9 @@
-﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleShared;
+﻿using GestaoDeEquipamentosApp.Domain.ModuleShared;
 using System.Net.Mail;
-using System.Xml.Linq;
 
-namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer;
+namespace GestaoDeEquipamentosApp.Domain.ModuleManufacturer;
 
-public class Manufacturer : EntityModel
+public class Manufacturer : EntityModel<Manufacturer>
 {
     public string Name { get; set; }
     public string Email { get; set; }
@@ -32,9 +31,9 @@ public class Manufacturer : EntityModel
         return errors;
     }
 
-    public override void updateRegister(EntityModel updatedRegister)
+    public override void updateRegister(Manufacturer updatedRegister)
     {
-        Manufacturer manufacturerUpdated = (Manufacturer)updatedRegister;
+        Manufacturer manufacturerUpdated = updatedRegister;
 
         this.Name = manufacturerUpdated.Name;
         this.Email = manufacturerUpdated.Email;

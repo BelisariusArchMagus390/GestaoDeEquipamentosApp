@@ -1,16 +1,9 @@
-﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer;
-using GestaoDeEquipamentosApp.ConsoleApp.ModuleShared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using GestaoDeEquipamentosApp.Domain.ModuleManufacturer;
+using GestaoDeEquipamentosApp.Domain.ModuleShared;
 
-namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
+namespace GestaoDeEquipamentosApp.Domain.ModuleEquipment
 {
-    public class Equipment : EntityModel
+    public class Equipment : EntityModel<Equipment>
     {
         public string Name { get; set; }
         public decimal PurchasePrice { get; set; }
@@ -37,9 +30,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
             return errors;
         }
 
-        public override void updateRegister(EntityModel updatedRegister)
+        public override void updateRegister(Equipment updatedRegister)
         {
-            Equipment equipmentUpdated = (Equipment)updatedRegister;
+            Equipment equipmentUpdated = updatedRegister;
 
             this.Name = equipmentUpdated.Name;
             this.PurchasePrice = equipmentUpdated.PurchasePrice;

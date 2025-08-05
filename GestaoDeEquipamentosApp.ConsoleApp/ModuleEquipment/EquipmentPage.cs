@@ -1,10 +1,8 @@
-﻿using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
-using GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer;
+using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
+using GestaoDeEquipamentosApp.Domain.ModuleEquipment;
+using GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleEquipment;
+using GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleManufacturer;
 
 namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 {
@@ -19,14 +17,10 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
             return Data;
         }
 
-        public EquipmentPage(EquipmentDataBase equipmentData)
+        public EquipmentPage(EquipmentDataBase equipmentData, ManufacturerDataBase manufacturerData)
         {
             Data = equipmentData;
-            Mp = new ManufacturerPage();
-        }
-
-        public EquipmentPage()
-        {
+            Mp = new ManufacturerPage(manufacturerData);
         }
 
         private int createId()
@@ -39,7 +33,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
                 id = randomId.Next(100, 200);
 
                 bool equal = false;
-                foreach (var i in Data.Equipments)
+                foreach (var i in Data.selectRegister())
                 {
                     if (i.Id == id)
                         equal = true;
@@ -88,9 +82,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
             equipment.ManufactureDate = Input.verifyDateTime("\n Digite a data de fabricação: ");
 
             int manufacturerIndex = Mp.findIndexManufacturer();
-            equipment.Manufacturer = Mp.getData().Manufacturers[manufacturerIndex];
+            equipment.Manufacturer = Mp.getData().selectRegister()[manufacturerIndex];
 
-            Data.Equipments.Add(equipment);
+            Data.selectRegister().Add(equipment);
 
             Console.Clear();
             Console.WriteLine("\n Equipamento registrado com sucesso!");
@@ -105,7 +99,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
                 " Id", "Nome", "Preço Aquisição", "Número Série", "Fabricante", "Data Fabricação"
             );
 
-            foreach (Equipment e in Data.Equipments)
+            foreach (Equipment e in Data.selectRegister())
             {
                 if (e == null)
                     continue;
@@ -137,11 +131,11 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
                 int id = int.Parse(Console.ReadLine());
 
                 bool equipmentFound = false;
-                foreach (Equipment e in Data.Equipments)
+                foreach (Equipment e in Data.selectRegister())
                 {
                     if (e.Id == id)
                     {
-                        Data.Equipments.IndexOf(e);
+                        Data.selectRegister().IndexOf(e);
                         equipmentFound = true;
                         break;
                     }
@@ -161,19 +155,19 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 
             Console.Clear();
             Console.Write("\n Digite seu novo nome: ");
-            Data.Equipments[equipmentIndex].Name = Console.ReadLine();
+            Data.selectRegister()[equipmentIndex].Name = Console.ReadLine();
 
-            Data.Equipments[equipmentIndex].PurchasePrice = Input.verifyDecimalValue("\n Digite o seu novo preço de aquisição: ");
+            Data.selectRegister()[equipmentIndex].PurchasePrice = Input.verifyDecimalValue("\n Digite o seu novo preço de aquisição: ");
 
             Console.Clear();
             Console.Write("\n Digite o seu novo número de série: ");
-            Data.Equipments[equipmentIndex].SerialNumber = Console.ReadLine();
+            Data.selectRegister()[equipmentIndex].SerialNumber = Console.ReadLine();
 
-            Data.Equipments[equipmentIndex].ManufactureDate = Input.verifyDateTime("\n Digite a novo data de fabricação: ");
+            Data.selectRegister()[equipmentIndex].ManufactureDate = Input.verifyDateTime("\n Digite a novo data de fabricação: ");
 
             Console.Clear();
             Console.Write("\n Digite o novo nome do fabricante: ");
-            Data.Equipments[equipmentIndex].Manufacturer.Name = Console.ReadLine();
+            Data.selectRegister()[equipmentIndex].Manufacturer.Name = Console.ReadLine();
 
             Console.Clear();
             Console.WriteLine("\n Registro de equipamento atualizado com sucesso!");
@@ -185,7 +179,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
         {
             int equipmentIndex = findIndexEquipment();
 
-            Data.Equipments.RemoveAt(equipmentIndex);
+            Data.selectRegister().RemoveAt(equipmentIndex);
 
             Console.Clear();
             Console.WriteLine("\n Registro de equipamento removido com sucesso!");
