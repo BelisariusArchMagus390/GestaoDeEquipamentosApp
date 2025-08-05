@@ -1,22 +1,39 @@
+<<<<<<< HEAD
 ﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer;
 using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
 using GestaoDeEquipamentosApp.Domain.ModuleEquipment;
 using GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleEquipment;
 using GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleManufacturer;
+=======
+﻿using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
+using GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GestaoDeEquipamentosApp.ConsoleApp.ModuleShared;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+>>>>>>> d2d24aefd89f1124d39ccbd6da024df386285cb7
 
 namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 {
-    internal class EquipmentPage
+    public class EquipmentPage : PageModel
     {
-        private static EquipmentDataBase Data;
-        public static Input Input = new Input();
-        public static ManufacturerPage Mp;
+        static Input Input = new Input();
+        private EquipmentDataBase EquipmentData;
+        private ManufacturerDataBase ManufacturerData;
 
-        public EquipmentDataBase getData()
+        public EquipmentPage(
+            EquipmentDataBase EquipmentData,
+            ManufacturerDataBase ManufacturerData
+        ) : base("Equipamento", EquipmentData)
         {
-            return Data;
+            this.EquipmentData = EquipmentData;
+            this.ManufacturerData = ManufacturerData;
         }
 
+<<<<<<< HEAD
         public EquipmentPage(EquipmentDataBase equipmentData, ManufacturerDataBase manufacturerData)
         {
             Data = equipmentData;
@@ -29,9 +46,21 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
             int id = 0;
 
             while (true)
-            {
-                id = randomId.Next(100, 200);
+=======
+        public override void showRegisters(bool showForSelection = false)
+        {
+            Console.WriteLine(
+                " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20} | {5, -20}",
+                " Id", "Nome", "Preço Aquisição", "Número Série", "Fabricante", "Data Fabricação"
+            );
 
+            foreach (Equipment e in EquipmentData.selectRegister())
+>>>>>>> d2d24aefd89f1124d39ccbd6da024df386285cb7
+            {
+                if (e == null)
+                    continue;
+
+<<<<<<< HEAD
                 bool equal = false;
                 foreach (var i in Data.selectRegister())
                 {
@@ -41,33 +70,24 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 
                 if (equal == false)
                     break;
+=======
+                Console.WriteLine(
+                    " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20} | {5, -15}",
+                    " " + e.Id, e.Name, e.PurchasePrice.ToString("C2"), e.SerialNumber, e.Manufacturer.Name, e.ManufactureDate.ToShortDateString()
+                );
             }
-            return id;
+
+            if (showForSelection == false)
+            {
+                Console.WriteLine("\n Aperte ENTER para continuar...");
+                Console.ReadLine();
+>>>>>>> d2d24aefd89f1124d39ccbd6da024df386285cb7
+            }
         }
 
-        public char showMenu()
-        {
-            Console.WriteLine(" --------------------------------------------");
-            Console.WriteLine($"\n GESTÃO DE EQUIPAMENTOS");
-            Console.WriteLine("\n --------------------------------------------");
-
-            Console.WriteLine("\n 1 - Registrar novo equipamento");
-            Console.WriteLine(" 2 - Mostrar equipamentos");
-            Console.WriteLine(" 3 - Atualizar registro de equipamento");
-            Console.WriteLine(" 4 - Excluir equipamentos");
-            Console.WriteLine(" 5 - Sair");
-
-            Console.Write("\n Escolha uma das opções acima: ");
-            char option = Console.ReadLine()[0];
-
-            return option;
-        }
-
-        public void register()
+        protected override Equipment getDate()
         {
             Equipment equipment = new Equipment();
-
-            equipment.Id = createId();
 
             Console.Clear();
             Console.Write("\n Digite o nome do equipamento: ");
@@ -81,6 +101,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 
             equipment.ManufactureDate = Input.verifyDateTime("\n Digite a data de fabricação: ");
 
+<<<<<<< HEAD
             int manufacturerIndex = Mp.findIndexManufacturer();
             equipment.Manufacturer = Mp.getData().selectRegister()[manufacturerIndex];
 
@@ -120,13 +141,19 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
         private int findIndexEquipment()
         {
             int index = 0;
+=======
+            Manufacturer manufacturer;
+            int id;
+>>>>>>> d2d24aefd89f1124d39ccbd6da024df386285cb7
 
             while (true)
             {
                 Console.Clear();
+                id = Input.verifyIntValue("\n Entre com o ID do fornecedor que deseja: ");
 
-                showEquipments();
+                manufacturer = (Manufacturer)ManufacturerData.selectRegisterById(id);
 
+<<<<<<< HEAD
                 Console.Write("\n Entre com o ID do equipamento: ");
                 int id = int.Parse(Console.ReadLine());
 
@@ -143,16 +170,17 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
 
                 if (equipmentFound == true)
                     break;
+=======
+                if (manufacturer == null)
+                    Console.WriteLine($"\n Erro! Não foi encontrado o ID desejado.");
+>>>>>>> d2d24aefd89f1124d39ccbd6da024df386285cb7
                 else
-                    Input.showErrorMessage("Esse equipamento não existe.");
+                    break;
             }
-            return index;
-        }
 
-        public void edit()
-        {
-            int equipmentIndex = findIndexEquipment();
+            equipment.Manufacturer = manufacturer;
 
+<<<<<<< HEAD
             Console.Clear();
             Console.Write("\n Digite seu novo nome: ");
             Data.selectRegister()[equipmentIndex].Name = Console.ReadLine();
@@ -185,6 +213,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment
             Console.WriteLine("\n Registro de equipamento removido com sucesso!");
             Console.WriteLine("\n Aperte ENTER para continuar...");
             Console.ReadLine();
+=======
+            return equipment;
+>>>>>>> d2d24aefd89f1124d39ccbd6da024df386285cb7
         }
     }
 }

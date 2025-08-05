@@ -46,7 +46,11 @@ namespace GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleShared
 
         public Type selectRegisterById(int id)
         {
+<<<<<<< HEAD:GestaoDeEquipamentosApp.Infrastructure.Memory/ModuleShared/DataBaseModel.cs
             foreach (Type m in Registers)
+=======
+            foreach (EntityModel m in Registers)
+>>>>>>> d2d24aefd89f1124d39ccbd6da024df386285cb7:GestaoDeEquipamentosApp.ConsoleApp/ModuleShared/DataBaseModel.cs
             {
                 if (m.Id == id)
                 {

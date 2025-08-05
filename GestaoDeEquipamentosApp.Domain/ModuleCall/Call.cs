@@ -3,7 +3,11 @@ using GestaoDeEquipamentosApp.Domain.ModuleShared;
 
 namespace GestaoDeEquipamentosApp.Domain.ModuleCall
 {
+<<<<<<< HEAD:GestaoDeEquipamentosApp.Domain/ModuleCall/Call.cs
     public class Call : EntityModel<Call>
+=======
+    public class Call : EntityModel
+>>>>>>> d2d24aefd89f1124d39ccbd6da024df386285cb7:GestaoDeEquipamentosApp.ConsoleApp/ModuleCall/Call.cs
     {
         public string Title { get; set; }
         public string Description { get; set; }

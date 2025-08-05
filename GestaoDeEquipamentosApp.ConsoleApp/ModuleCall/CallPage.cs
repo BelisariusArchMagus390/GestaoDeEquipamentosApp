@@ -1,4 +1,5 @@
 ﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment;
+using GestaoDeEquipamentosApp.ConsoleApp.ModuleShared;
 using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
 using GestaoDeEquipamentosApp.Domain.ModuleCall;
 using GestaoDeEquipamentosApp.Domain.ModuleEquipment;
@@ -8,13 +9,13 @@ using GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleManufacturer;
 
 namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
 {
-    internal class CallPage
+    public class CallPage : PageModel
     {
-        private static CallDataBase Data;
-        public static Input Input;
-        private static int IndexCount;
-        private static EquipmentPage Ep;
+        static Input Input = new Input();
+        private CallDataBase CallData;
+        private EquipmentDataBase EquipmentData;
 
+<<<<<<< HEAD
         public CallPage(CallDataBase callData, EquipmentDataBase equipmentData, ManufacturerDataBase manufacturerData)
         {
             Data = callData;
@@ -167,20 +168,36 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
         }
 
         public void showCalls(bool showForSelection = false)
+=======
+        public CallPage(
+            CallDataBase CallData,
+            EquipmentDataBase EquipmentData
+        ) : base("Chamado", CallData)
+        {
+            this.CallData = CallData;
+            this.EquipmentData = EquipmentData;
+        }
+
+        public override void showRegisters(bool showForSelection = false)
+>>>>>>> d2d24aefd89f1124d39ccbd6da024df386285cb7
         {
             Console.WriteLine(
                 " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
                 " Id", "Título", "Descrição", "Equipamento", "Data Abertura"
             );
 
+<<<<<<< HEAD
             foreach (Call c in Data.selectRegister())
+=======
+            foreach (Call c in CallData.selectRegister())
+>>>>>>> d2d24aefd89f1124d39ccbd6da024df386285cb7
             {
                 if (c == null)
                     continue;
 
                 Console.WriteLine(
                     " {0, -10} | {1, -20} | {2, -10} | {3, -10} | {4, -20}",
-                    " "+c.Id, c.Title, c.Description, c.EquipmentRegister.Name, c.OpenCallDate.ToShortDateString()
+                    " " + c.Id, c.Title, c.Description, c.EquipmentRegister.Name, c.OpenCallDate.ToShortDateString()
                 );
             }
 
@@ -189,6 +206,40 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleCall
                 Console.WriteLine("\n Aperte ENTER para continuar...");
                 Console.ReadLine();
             }
+        }
+
+        protected override Call getDate()
+        {
+            Call call = new Call();
+
+            Console.Clear();
+            Console.Write("\n Digite o título do chamado: ");
+            call.Title = Console.ReadLine();
+
+            Console.Clear();
+            Console.WriteLine("\n Digite a descrição do chamado: ");
+            call.Description = Console.ReadLine();
+
+            Equipment equipment;
+            int id;
+
+            while (true)
+            {
+                Console.Clear();
+                id = Input.verifyIntValue("\n Entre com o ID do equipamento que deseja: ");
+
+                equipment = (Equipment)EquipmentData.selectRegisterById(id);
+
+                if (equipment == null)
+                    Console.WriteLine($"\n Erro! Não foi encontrado o ID desejado.");
+                else
+                    break;
+            }
+            call.EquipmentRegister = equipment;
+
+            call.OpenCallDate = Input.verifyDateTime("\n Digite a data do chamado: ");
+
+            return call;
         }
     }
 }

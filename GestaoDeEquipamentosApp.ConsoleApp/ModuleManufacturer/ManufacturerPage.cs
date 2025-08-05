@@ -1,50 +1,68 @@
+<<<<<<< HEAD
 ﻿using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
 using GestaoDeEquipamentosApp.Domain.ModuleEquipment;
 using GestaoDeEquipamentosApp.Domain.ModuleManufacturer;
 using GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleEquipment;
 using GestaoDeEquipamentosApp.Infrastructure.Memory.ModuleManufacturer;
+=======
+﻿using GestaoDeEquipamentosApp.ConsoleApp.ModuleEquipment;
+using GestaoDeEquipamentosApp.ConsoleApp.ModuleShared;
+using GestaoDeEquipamentosApp.ConsoleApp.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+>>>>>>> d2d24aefd89f1124d39ccbd6da024df386285cb7
 
 namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
 {
-    internal class ManufacturerPage
+    public class ManufacturerPage : PageModel
     {
+<<<<<<< HEAD
         private static ManufacturerDataBase Data;
         public static Input Input = new Input();
         private static int IndexCount = 1;
 
         public ManufacturerPage(ManufacturerDataBase data)
+=======
+        private ManufacturerDataBase Data;
+    
+        public ManufacturerPage(ManufacturerDataBase Data)
+            : base("Fabricante", Data)
+>>>>>>> d2d24aefd89f1124d39ccbd6da024df386285cb7
         {
-            Data = data;
+            this.Data = Data;
         }
 
-        public ManufacturerDataBase getData()
+        public override void showRegisters(bool showForSelection = false)
         {
-            return Data;
+            Console.WriteLine(
+                " {0, -10} | {1, -20} | {2, -10} | {3, -10} ",
+                " Id", "Nome", "E-mail", "Telefone"
+            );
+
+            foreach (Manufacturer m in Data.selectRegister())
+            {
+                if (m == null)
+                    continue;
+
+                Console.WriteLine(
+                    " {0, -10} | {1, -20} | {2, -10} | {3, -10} ",
+                    " "+m.Id, m.Name, m.Email, m.Telephone
+                );
+            }
+
+            if (showForSelection == false)
+            {
+                Console.WriteLine("\n Aperte ENTER para continuar...");
+                Console.ReadLine();
+            }
         }
 
-        public char showMenu()
-        {
-            Console.WriteLine(" --------------------------------------------");
-            Console.WriteLine($"\n GESTÃO DE FABRICANTES");
-            Console.WriteLine("\n --------------------------------------------");
-
-            Console.WriteLine("\n 1 - Registrar novo fabricante");
-            Console.WriteLine(" 2 - Mostrar fabricantes");
-            Console.WriteLine(" 3 - Atualizar registro de fabricante");
-            Console.WriteLine(" 4 - Excluir registro de fabricante");
-            Console.WriteLine(" 5 - Sair");
-
-            Console.Write("\n Escolha uma das opções acima: ");
-            char option = Console.ReadLine()[0];
-
-            return option;
-        }
-
-        public void register()
+        protected override Manufacturer getDate()
         {
             Manufacturer manufacturer = new Manufacturer();
-
-            manufacturer.Id = IndexCount;
 
             Console.Clear();
             Console.Write("\n Digite o nome do fabricante: ");
@@ -58,6 +76,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
             Console.Write("\n Digite o telefone do fabricante: ");
             manufacturer.Telephone = Console.ReadLine();
 
+<<<<<<< HEAD
             Data.selectRegister().Add(manufacturer);
             IndexCount++;
 
@@ -167,6 +186,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleManufacturer
                 Console.WriteLine("\n Aperte ENTER para continuar...");
                 Console.ReadLine();
             }
+=======
+            return manufacturer;
+>>>>>>> d2d24aefd89f1124d39ccbd6da024df386285cb7
         }
     }
 }

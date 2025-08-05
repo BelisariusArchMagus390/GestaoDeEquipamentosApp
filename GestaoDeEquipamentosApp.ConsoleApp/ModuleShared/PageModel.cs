@@ -7,7 +7,7 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
     public abstract class PageModel<T> where T : EntityModel<T>
     {
         protected string EntityName;
-        protected DataBaseModel<T> DataBase;
+        protected DataBaseModel DataBase;
         static Input InputVer;
 
         protected PageModel(string entityName, DataBaseModel<T> dataBase)
@@ -64,9 +64,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
 
         public void edit()
         {
-            showRegisters();
+            showRegisters(true);
 
-            int id = InputVer.verifyIntValue("\n Entre com o ID do registro que deseja: ");
+            int id = Input.verifyIntValue("\n Entre com o ID do registro que deseja: ");
 
             T updatedRegister = getDate();
 
@@ -83,9 +83,9 @@ namespace GestaoDeEquipamentosApp.ConsoleApp.ModuleShared
 
         public void delete()
         {
-            showRegisters();
+            showRegisters(true);
 
-            int id = InputVer.verifyIntValue("\n Entre com o ID do registro que deseja: ");
+            int id = Input.verifyIntValue("\n Entre com o ID do registro que deseja: ");
 
             Console.Clear();
 
